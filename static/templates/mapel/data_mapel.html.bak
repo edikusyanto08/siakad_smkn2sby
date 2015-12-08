@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}{% if message.tags == 'warning' %}<a href="/jadwal/kelas"> Data Jadwal</a>{% endif %}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-briefcase"></i></div>
+					<h5>{{ heading }}</h5>
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "waka" %}
+				<div class="toolbar tooltip-demo">
+					<a href="tambah"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Tambah data"><i class="icon-plus"> Tambah Data</i></a>
+				</div>
+				{% endif %}
+			</header>
+			<div class="body" style="background: #ffffff">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered" id="dataTables-example">
+						<thead>
+							<tr>
+							<th width="10%">No</th>
+							<th>Jurusan</th>
+							<th>Jenis Mapel</th>
+							<th>Nama Mapel</th>
+							<th>Pengajar</th>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "waka" %}
+							<th></th>
+							{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+						{% for mapel in datanya %}
+							<tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ mapel.jurusan }}</td>
+								<td>{{ mapel.type_mapel }}</td>
+								<td>{{ mapel.nama_mapel }}</td>
+								<td><ul>{% for guru in pengajar %}
+										{% if guru.mapel == mapel %}
+										<li>{{guru.pengajar.nama_lengkap}}</li>
+										{% endif %}
+									{% endfor %}</ul>
+								</td>
+								{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "waka" %}
+								<td>
+								<table border="0"><tr><td>
+								<div class="tooltip-demo">
+									<a href="/data_master/mapel/ubah/{{ mapel.id }}"  type="button" class="btn btn-warning btn-line btn-sm btn-round" align="right" data-toggle="tooltip" data-placement="left" title="Ubah data"><i class="icon-edit"></i></a></td><td>
+								</div>
+								<div class="tooltip-demo">
+									<a href="/data_master/mapel/hapus/{{ mapel.id }}" type="button" class="btn btn-danger btn-line btn-sm btn-round" align="right" onclick="return confirm('Semua data yang berhubungan dengan data yang dipilih juga akan dihapus. Apakah anda yakin menghapus data?')" data-toggle="tooltip" data-placement="left" title="Hapus data"><i class="icon-trash"></i></a>
+								</div>
+								</td></tr></table>
+								</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

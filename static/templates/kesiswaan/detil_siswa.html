@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+	<ul class="breadcrumb active">
+		{% autoescape off %}
+			{{ breadcrumb }}
+		{% endautoescape %}
+	</ul>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4>{{ heading }}</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-lg-2" >
+					<div class="panel panel-primary">
+						<div class="panel-body" align="center">
+						{% for siswa in datanya %}
+							<img {% if not siswa.foto %}src="/static/img/account_and_control.png"{% else %}src="/media/{{ siswa.foto }}"{% endif %} width="110" height="130" border="0" alt="">
+						</div>
+					</div>
+					<div class="form-group" align="right">
+						<button type="button" class="btn btn-default" onclick="window.open('/kesiswaan/siswa/cetak/{{ siswa.id }}')">Cetak</button>
+						<button type="button" class="btn btn-primary" onclick="self.history.back()">Ok</button>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="panel panel-default">
+						<div class="panel-heading">Data Siswa</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<table border="0" class="table-responsive">
+									<tr>
+										<th style="padding: 7px;">NIS</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.NIS }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">NISN</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.NISN }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Sekolah Asal</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.sekolah_asal }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">No Ijazah</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.no_ijazah }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">No SKHUN</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.no_skhun }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Nilai UN</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.nilai_un }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Jenis Kelamin</th>
+										<td>:</td>
+										<td style="padding: 7px;">{% if siswa.jenis_kelamin == "L"%} Laki-laki {% else %} Perempuan {% endif %}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Asal</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.tempat_lahir }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Tanggal Lahir</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.tanggal_lahir|date:"d M Y" }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Alamat</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.alamat }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Agama</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.agama }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">No Telp</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.no_telpon }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Tinggi</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.tinggi }} Cm</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Berat</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.berat }} Kg</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Tinggal Dengan</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.tinggal_dengan }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Jumlah Saudara</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.jumlah_saudara }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Tanggal Diterima</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.tanggal_masuk|date:"d M Y" }}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="panel panel-default">
+						<div class="panel-heading">Data Orang Tua</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<table border="0">
+									<tr>
+										<th style="padding: 7px;">Nama Ayah Kandung</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.nama_ayah }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Nama Ibu Kandung</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.nama_ibu }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Alamat Orang Tua</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.alamat_ortu }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">No Telepon Orang Tua</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.no_telpon }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Pendidikan Ayah</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.pendidikan_ayah }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Pekerjaan Ayah</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.pekerjaan_ayah }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Penghasilan Ayah</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.penghasilan_ayah }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Pendidikan Ibu</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.pendidikan_ibu }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Pekerjaan Ibu</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.pekerjaan_ibu }}</td>
+									</tr>
+									<tr>
+										<th style="padding: 7px;">Penghasilan Ibu</th>
+										<td>:</td>
+										<td style="padding: 7px;">{{ siswa.ortu_siswa.penghasilan_ibu }}</td>
+									</tr>
+								</table>
+							{% endfor %}
+							</div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+				{% for siswa in datanya %}
+				Keterangan : <br>
+				{{ siswa.keterangan }} {{ siswa.ortu_siswa.keterangan }}
+				{%  endfor %}
+					<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>Kelas</th>
+								<th>Jurusan</th>
+								<th>Wali Kelas</th>
+								<th>Tahun Ajaran</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for kelas in kelasnya %}
+						<tr>
+							<td><a href="/kesiswaan/kelas/siswa/{{kelas.id}}">{{ kelas.nama_kelas }}</a></td>
+							<td>{{ kelas.jurusan }}</td>
+							<td>{{ kelas.wali_kelas.nama_lengkap }}</td>
+							<td>{{ kelas.tahun_ajaran }}</td>
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+
+					<h4>Absensi</h4>
+					<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Kelas</th>
+							<th>Tanggal</th>
+							<th>Status</th>
+							<th>Keterangan</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for absen in absennya %}
+						<tr>
+							<td>{{absen.kelas.nama_kelas}}</td>
+							<td>{{absen.tanggal|date:"d M Y"}}</td>
+							<td>{{absen.status}}</td>
+							<td>{{absen.keterangan}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					</table>
+				</div>
+			<div class="panel-footer"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

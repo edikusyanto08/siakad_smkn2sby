@@ -1,0 +1,39 @@
+{% extends 'cetak.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+	<div align="center">
+		<h3>{% autoescape off %}{{ heading }}{% endautoescape %}</h3>
+		<h4>Periode</td><td>:</td><td>{{ start|date:"d M Y" }} sampai {{ end|date:"d M Y" }}</h4>
+	</div>
+Petugas : {{request.session.nama_user}}
+	<div><br></div>
+				<table class="table table-stripped table-bordered">
+					<thead>
+						<tr>
+							<th width="5%">No</th>
+							<th width="10%">NIS</th>
+							<th width="30%">Nama Lengkap</th>
+							<th width="10%">Kelas</th>
+							<th width="10%">Tanggal</th>
+							<th width="10%">Status</th>
+							<th width="30%">Keterangan</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for absen in datanya %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{absen.siswa.NIS}}</td>
+							<td>{{absen.siswa.nama_lengkap}}</td>
+							<td>{{absen.kelas.nama_kelas}}</td>
+							<td>{{absen.tanggal|date:"d M Y"}}</td>
+							<td>{{absen.status}}</td>
+							<td>{{absen.keterangan}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+	</div>
+</div>
+{% endblock %}

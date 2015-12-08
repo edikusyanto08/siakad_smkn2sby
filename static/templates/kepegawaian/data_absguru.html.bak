@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<b>{{ message }}</b>
+				</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-user"></i></div>
+				<h5>{{ heading }}</h5>
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+				<div class="toolbar tooltip-demo">
+					<a href="tambah"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Tambah data"><i class="icon-plus"> Tambah Data</i></a>
+				</div>
+				{% endif %}
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-hover" id="dataTables-example">
+					<thead>
+						<tr>
+							<th>NIP</th>
+							<th>Nama</th>
+							<th>Jam Ke</th>
+							<th>Tanggal</th>
+							<th>Status</th>
+							<th>Keterangan</th>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<th></th>
+							{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for absen in datanya %}
+						<tr class="odd gradeX">
+							<td>{{absen.guru.NIP}}</td>
+							<td>{{absen.guru.nama_lengkap}}</td>
+							<td>{%if not absen.jam_ke%}Sehari Penuh{%else%}{{absen.jam_ke}}{%endif%}</td>
+							<td>{{absen.tanggal|date:"d M Y"}}</td>
+							<td>{{absen.status}}</td>
+							<td>{{absen.keterangan}}</td>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<td width="10%">
+								<div class="tooltip-demo" align="right">
+									<a href="/kepegawaian/absensi/hapus/{{ absen.id }}" type="button" class="btn btn-danger btn-sm btn-line btn-round" align="right" onclick="return confirm('Apakah anda yakin menghapus data? ')" data-toggle="tooltip" data-placement="top" title="Hapus data"><i class="icon-trash"></i></a>
+								</div>
+							</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+<script src="/static/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#dataTables-example').dataTable();
+	});
+</script>

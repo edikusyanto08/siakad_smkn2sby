@@ -1,0 +1,6 @@
+if request.session['hak_akses'] !="siswa":
+
+if request.session['hak_akses'] =="Admin" or request.session['hak_akses'] =="waka" :
+
+else:
+return render(request, "errors_403.html", {} )

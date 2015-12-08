@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-user"></i></div>
+				<h5>{{ heading }}</h5>
+			</header>
+			<div class="body">
+				<div class="row ">
+				<form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+					<div class="col-sm-5">
+							{% for field in form %}
+							<div class="form-group">
+								{% if field.html_name == "jabatan" %}
+										{{ field.label_tag}}{{ field.errors }}
+									<table border="0"><tr><td>
+									<div id="jabatan1" style="float: left;">{{ field }}</div>
+									</td><td>
+									<div class="tooltip-demo">&nbsp;&nbsp;
+										<a class="btn btn-warning btn-round" href="/data_master/jabatan/tambah/" id="add_id_jabatan" align="center" data-toggle="tooltip" data-placement="right" title="Tambah Jabatan" onclick="return showAddAnotherPopup(this)"><i class="icon-plus"></i></a>
+									</div>
+									</td></tr>
+									</table>
+								{% elif field.html_name == "pangkat" %}
+										{{ field.label_tag}}{{ field.errors }}
+									<table border="0"><tr><td>
+									<div id="pangkat1" style="float: left;">{{ field }}</div>
+									</td><td>
+									<div class="tooltip-demo">&nbsp;&nbsp;
+										<a type="button" href="/data_master/pangkat/tambah/" id="add_id_pangkat" class="btn btn-warning btn-round" align="center" data-toggle="tooltip" data-placement="right" title="Tambah Pangkat" onclick="return showAddAnotherPopup(this)"><i class="icon-plus"></i></a>
+									</div>
+									</td></tr>
+									</table>
+								{% elif field.html_name == "foto" %}
+									<div>
+										{{ field.label_tag}}{{ field.errors }}{{ field }}
+									</div>
+									<div id="jurusan1" style="float: left;"></div>
+									
+								{% else %} 
+									{{ field.label_tag }}{{ field.errors }} {{ field }}
+								{% endif %}
+							</div>
+							{% endfor %}
+						<div class="form-group" align="right">
+							<button type="button" class="btn btn-default btn-round" onClick="window.location='{{linkback}}'"><i class=" icon-undo"> Batal</i></button>
+							<button type="submit" class="btn btn-primary btn-round"><i class="icon-save"> Simpan</i></button>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

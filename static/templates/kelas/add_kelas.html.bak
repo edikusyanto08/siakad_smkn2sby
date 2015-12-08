@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if form.non_field_errors %}
+		<div class="alert alert-danger alert-dismissable" align="center">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<b>{{ form.non_field_errors.as_text|slice:"1:"}}</b>
+		</div>
+		{%endif%}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-group"></i></div>
+				<h5>{{ heading }}</h5>
+			</header>
+			<div class="body">
+				<div class="row ">
+				<div class="col-sm-5">
+					<form method="post" action="">{% csrf_token %}
+						<div class="from-group">
+						{% for field in form.visible_fields %}
+							<div class="form-group">
+								{{ field.label_tag }}{{ field.errors }} {{ field }}
+							</div>
+						{% endfor %}
+						</div>
+						<div class="form-group" align="right">
+							<button type="button" class="btn btn-default btn-round" onClick="window.location='{{linkback}}'"><i class=" icon-undo"> Batal</i></button>
+							<button type="submit" class="btn btn-primary btn-round"><i class="icon-save"> Simpan</i></button>
+						</div>
+					</form>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#id_jurusan').change(function(){
+		jurusan_id = $(this).val();
+		request_url = '/kesiswaan/kelas/get_siswa/' + jurusan_id + '/';
+		$.ajax({
+			url: request_url,
+			success: function(data){
+				$.each(data[0], function(key, value){
+				$('#id_siswa').append('<option value="' + this.key + '">' +
+				this.value +'</option>');
+			});
+			}
+			return false;
+		})
+	})
+});
+</script>
+{% endblock %}

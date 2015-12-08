@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="inner" style="min-height: 700px;">
+	<div class="row">
+		<div class="col-lg-12">
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+			<h1> Selamat Datang {{ request.session.nama_user }} </h1>
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-lg-12">
+			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Halaman Utama Sistem Informasi Akademik SMK Negeri 2 Surabaya</h4>
+				</div>
+				<div class="panel-body">
+				Ini adalah sistem informasi akademik SMK Negeri 2 Surabaya yang diperuntukkan untuk membantu tata kelola akademik sekolah. <br>
+				Silahkan memilih menu cepat dibawah ini untuk memulai kegiatan anda.<br><br><br>
+				<div style="text-align: center;">
+				{% if request.session.hak_akses != "siswa" %}
+				<a class="quick-btn" href="/kesiswaan/siswa">
+                    <i class="icon-group icon-2x"></i>
+                    <span> Siswa</span>
+                    <span class="label label-danger">Data</span>
+                </a>
+				{% endif %}
+				{% if request.session.hak_akses == "staf" %}
+				<a class="quick-btn" href="/kesiswaan/kelas/tambah/">
+					<i class="icon-th icon-2x"></i>
+					<span> Kelas</span>
+					<span class="label label-info">Atur</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "kepsek" %}
+				<a class="quick-btn" href="/kepegawaian/guru/">
+					<i class="icon-th icon-2x"></i>
+					<span> Guru</span>
+					<span class="label label-info">Data</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "kepsek" %}
+				<a class="quick-btn" href="/penilaian/nilai/">
+					<i class="icon-pencil icon-2x"></i>
+					<span> Siswa</span>
+					<span class="label label-success">Data Nilai</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "staf" %}
+				<a class="quick-btn" href="/user/">
+					<i class="icon-lock icon-2x"></i>
+					<span> User</span>
+					<span class="label label-warning">Manajemen</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "staf" %}
+				<a class="quick-btn" href="/data_master/tahun_ajaran/">
+					<i class="icon-calendar icon-2x"></i>
+					<span> Tahun Ajaran</span>
+					<span class="label label-success">Manajemen</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "waka" %}
+				<a class="quick-btn" href="/penilaian/periode/">
+					<i class="icon-calendar icon-2x"></i>
+					<span> Periode</span>
+					<span class="label label-warning">Manajemen</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "guru" or request.session.hak_akses == "siswa" %}
+				<a class="quick-btn" href="/jadwal/jadwalku/">
+					<i class="icon-calendar icon-2x"></i>
+					<span> Jadwalku</span>
+					<span class="label label-success">Lihat</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "staf" %}
+				<a class="quick-btn" href="/data_master/jurusan/">
+					<i class="icon-cogs icon-2x"></i>
+					<span> Jurusan</span>
+					<span class="label label-default">Manajemen</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "waka" %}
+				<a class="quick-btn" href="/jadwal/kelas/">
+					<i class="icon-table icon-2x"></i>
+					<span> Jadwal</span>
+					<span class="label label-success">Atur</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "guru" %}
+				<a class="quick-btn" href="/penilaian/rekap">
+					<i class="icon-pencil icon-2x"></i>
+					<span> Penilaian</span>
+					<span class="label label-warning">Form</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "waka" %}
+				<a class="quick-btn" href="/kalender/">
+					<i class="icon-external-link icon-2x"></i>
+					<span> Agenda</span>
+					<span class="label btn-metis-1">Tambah</span>
+				</a>
+				{% endif %}
+				{% if request.session.hak_akses == "siswa" %}
+				<a class="quick-btn" href="/penilaian/nilaiku">
+					<i class="icon-pencil icon-2x"></i>
+					<span> Nilaiku</span>
+					<span class="label label-warning">Lihat</span>
+				</a>
+				{% endif %}
+			</div>
+				</div>
+				<div class="panel-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

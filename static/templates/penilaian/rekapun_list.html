@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+				</div>
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama Mapel</th>
+								<th>Tahun Ajaran</th>
+								<th>Nilai</th>
+								<th>Konversi</th>
+								<th>Predikat</th>
+								<th></th>
+
+							</tr>
+						</thead>
+						<tbody>
+						{% for rekap in datanya %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td>{{ rekap.mapel.nama_mapel }}</td>
+							<td>{{ rekap.tahun_ajaran}}</td>
+							<td>{{ rekap.nilai}}</td>
+							<td>{{ rekap.konversi}}</td>
+							<td>{{ rekap.predikat}}</td>
+								<td>
+								{% if request.session.hak_akses == "staf" %}
+									<div class="tooltip-demo" align="right">
+										<a href="/penilaian/us/entry/{{rekap.id}}" class="btn btn-info btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Entri nilai" onclick="return showAddAnotherPopup(this)" id="entry_nilai"><i class="icon-pencil"></i></a>
+									</div>
+								{% endif %}
+								</td>
+							
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

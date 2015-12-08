@@ -1,0 +1,574 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{ heading }}{% endautoescape %}</h5>
+				<div class="toolbar tooltip-demo">
+					<a href="cetak"  type="button" class="btn btn-default btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Cetak Jadwal" target="_blank"><i class="icon-print"> Cetak</i></a>
+				</div>
+			</header>
+			<div class="body" style="background: #ffffff">
+				<div class="table-responsive">
+					<table class="table table-bordered table-stripped table-hover">
+					<thead>
+						<tr>
+						<td align="center" rowspan="2"><b>Jam<b></td>
+						<td align="center" colspan="10"><b>Hari<b></td>
+						</tr>
+						<tr>
+						<td align="center" width="17%"><b>Senin<b></td>
+						<td align="center" width="17%"><b>Selasa<b></td>
+						<td align="center" width="17%"><b>Rabu<b></td>
+						<td align="center" width="17%"><b>Kamis<b></td>
+						<td align="center" width="17%"><b>Jumat<b></td>
+						<td align="center" width="17%"><b>Sabtu<b></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 1 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 2 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 3 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 4 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 5 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 6 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 7 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 8 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 9 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Senin" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Selasa" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Rabu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Kamis" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Jumat" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+							<td align="center">{% for jadwal in datanya %}
+								{% if jadwal.waktu.jam_ke == 10 and jadwal.waktu.hari == "Sabtu" %}
+								<b>{{ jadwal.mapel.mapel.nama_mapel }}</b><br>
+								{{ jadwal.kelas.nama_kelas }}<br>
+								{{ jadwal.ruang }}
+								{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+				<!--table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Hari</th>
+								<th>Jam</th>
+								<th>Mata Pelajaran</th>
+								<th>Pengajar</th>
+							</tr>
+						</thead>
+						<tbody>
+						{%for jadwal in datanya%}
+							<tr>
+								<td>{{jadwal.waktu.hari}}</td>
+								<td>Jam Ke <b>{{jadwal.waktu.jam_ke}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{jadwal.waktu.dari_jam|time:"H:i"}} s/d {{jadwal.waktu.sampai_jam|time:"H:i"}}</td>
+								<td>{{jadwal.mapel.nama_mapel}}</td>
+								<td>{{jadwal.kelas.nama_kelas}}</td>
+							<tr>
+						{% endfor%}
+						</tbody>
+					</table-->

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-calendar"></i></div>
+				<h5>{{ heading }}</h5>
+			</header>
+			<div class="body">
+				<div class="row ">
+				<div class="col-sm-5">
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "waka" %}
+					<form method="post" action="">{% csrf_token %}
+						<div class="form-group">
+						{% if "__all__" in form.errors.as_text %}
+							<div class="alert alert-danger">{{ form.errors.as_text|slice:"14:" }} </div>
+						{% endif %}
+							{% for field in form %}
+								{% if field.html_name == "dari_jam" or field.html_name == "sampai_jam" %}
+									{{ field.label_tag }}
+									<div class="input-group bootstrap-timepicker">
+										{{ field.errors }}{{ field }}
+										<span class="input-group-addon add-on"><i class="icon-time"></i></span>
+									</div>
+								{% else %}
+								{{ field.label_tag }}{{ field.errors }}{{ field }}
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="form-group" align="right">
+							<a type="button" class="btn btn-danger btn-round" href="{{linkhapus}}" onclick="return confirm('Apakah anda yakin menghapus data?')">Hapus</a>
+							<a type="button" class="btn btn-default btn-round" onClick=self.history.back()>Kembali</a>
+							<button type="submit" class="btn btn-primary btn-round">Simpan</button>
+						</div>
+					</form>
+				{% else %}
+					<div class="form-group">
+					{% for field in form %}
+						{% if "Keterangan" in field.label_tag %}
+							{{ field.label_tag }}<textarea class="form-control" id="autosize3" readonly>{{field.value}}</textarea>
+						{% else %}
+							{{ field.label_tag }}<input type="text" class="form-control" value="{{field.value}}" readonly>
+						{% endif %}
+					{% endfor %}
+				
+					</div>
+					<div class="form-group" align="right">
+						<a type="button" class="btn btn-default btn-round" onClick=self.history.back()>Kembali</a>
+					</div>
+				{% endif %}
+				</div>
+				<div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

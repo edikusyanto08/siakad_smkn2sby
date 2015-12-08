@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+	<ul class="breadcrumb active">
+		{% autoescape off %}
+			{{ breadcrumb }}
+		{% endautoescape %}
+	</ul>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4>{{ heading }}</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-lg-2" >
+					<div class="panel panel-primary">
+						<div class="panel-body" align="center">
+						{% for guru in datanya %}
+							<img {% if not guru.foto %}src="/static/img/account_and_control.png"{% else %}src="/media/{{ guru.foto }}"{% endif %}width="110" height="130" border="0" alt="">
+						</div>
+					</div>
+					<div class="form-group" align="right">
+						<button type="button" class="btn btn-default" onclick="window.open('/kepegawaian/guru/cetak/{{ guru.id }}')">Cetak</button>
+						<button type="button" class="btn btn-primary" onclick="self.history.back()">Ok</button>
+					</div>
+				</div>
+
+				<div class="col-sm-5">
+					<div class="form-group">
+						<table border="0" class="table-responsive">
+							<tr>
+							<th style="padding: 7px;">NIP</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.NIP }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Jenis Kelamin</th>
+								<td>:</td>
+								<td style="padding: 7px;">{% if guru.jenis_kelamin == "L"%} Laki-laki {% else %} Perempuan {% endif %}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Asal</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.tempat_lahir }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Tanggal Lahir</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.tanggal_lahir|date:"d M Y" }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Alamat</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.alamat }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Agama</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.agama }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">No Telp</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.no_telpon }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-sm-5">
+					<div class="form-group">
+						<table border="0">
+							<tr>
+								<th style="padding: 7px;">No Rekening</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.no_rekening }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Jabatan</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.jabatan.nama_jabatan }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Pangkat</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.pangkat.nama_pangkat }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Golongan</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.golongan }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">No Registrasi Guru</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.NRG }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">No Sertifikan Mengajar</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.no_sertifikat }}</td>
+							</tr>
+							<tr>
+								<th style="padding: 7px;">Tanggal Masuk</th>
+								<td>:</td>
+								<td style="padding: 7px;">{{ guru.tanggal_masuk|date:"d M Y" }}</td>
+							</tr>
+						</table>
+					{% endfor %}
+					</div>
+				</div>
+
+				<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>Mapel yang diampu</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for mapel in mapelnya %}
+						<tr>
+							<td>{{ mapel.mapel.nama_mapel }}</td>
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+			</div>
+			<div class="panel-footer"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

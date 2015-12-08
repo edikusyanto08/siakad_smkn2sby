@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+			</header>
+			<div class="body">
+				<div class="row">
+				<form method="post">{% csrf_token %}
+					<div class="col-sm-3">
+						<select class="form-control chzn-select" id="periode" name="periode_id" data-placement="left">
+							<option value="{{periode_id}}" selected="selected">Pilih Periode</option>
+						{% for periode in periodes %}
+							<option value="{{ periode.id }}">{{ periode.semester }} {{ periode.tahun_ajaran }}</option>
+						{% endfor %}
+						</select> 
+					</div>
+				</form>
+				</div><br>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#sikap" data-toggle="tab">Nilai Sikap</a></li>
+					<li><a href="#keterampilan" data-toggle="tab">Nilai Keterampilan</a></li>
+					<li><a href="#kognitif" data-toggle="tab">Nilai Kognitif (Pengetahuan)</a></li>
+					<li><a href="#total" data-toggle="tab">Nilai Total (Keseluruhan)</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="sikap">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Mapel</th>
+										<th>Pengampu</th>
+										<th>Observasi</th>
+										<th>Penilaian Diri</th>
+										<th>Penilaian Sejawat</th>
+										<th>Jurnal</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for nilai in nilaisikap %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ nilai.mapel.nama_mapel }}</td>
+									<td>{{ nilai.pengajar.nama_lengkap }}</td>
+									<td>{{ nilai.observasi }}</td>
+									<td>{{ nilai.penilaian_diri }}</td>
+									<td>{{ nilai.penilaian_sejawat }}</td>
+									<td>{{ nilai.jurnal }}</td>
+									<td>{{ nilai.rerata }}</td>
+									<td>{{ nilai.konversi }}</td>
+									<td>{{ nilai.predikat }}</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="keterampilan">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example3">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Mapel</th>
+										<th>Pengampu</th>
+										<th>Praktik</th>
+										<th>Poject</th>
+										<th>Portofolio</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for nilai in nilaiketerampilan %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ nilai.mapel.nama_mapel }}</td>
+									<td>{{ nilai.pengajar.nama_lengkap }}</td>
+									<td>{{ nilai.praktik }}</td>
+									<td>{{ nilai.project }}</td>
+									<td>{{ nilai.portofolio }}</td>
+									<td>{{ nilai.rerata }}</td>
+									<td>{{ nilai.konversi }}</td>
+									<td>{{ nilai.predikat }}</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="kognitif">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example2">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Mapel</th>
+										<th>Pengampu</th>
+										<th>Tugas</th>
+										<th>Ulangan</th>
+										<th>UTS</th>
+										<th>UAS</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for nilai in nilaikognitif %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ nilai.mapel.nama_mapel }}</td>
+									<td>{{ nilai.pengajar.nama_lengkap }}</td>
+									<td>{{ nilai.tugas }}</td>
+									<td>{{ nilai.uh }}</td>
+									<td>{{ nilai.uts }}</td>
+									<td>{{ nilai.uas }}</td>
+									<td>{{ nilai.rerata }}</td>
+									<td>{{ nilai.konversi }}</td>
+									<td>{{ nilai.predikat }}</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="total">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example4">
+								<thead>
+									<tr>
+										<th rowspan="2">No</th>
+										<th rowspan="2">Mapel</th>
+										<th rowspan="2">Pengampu</th>
+										<th colspan="3" align="center">Nilai Sikap</th>
+										<th colspan="3" align="center">Nilai Keterampilan</th>
+										<th colspan="3" align="center">Nilai Kognitif</th>
+										<th rowspan="2">Rata-rata</th>
+										<th rowspan="2">Konversi</th>
+										<th rowspan="2">Predikat</th>
+										<th rowspan="2">KKM</th>
+										<th rowspan="2">Keterangan</th>
+									</tr><tr>
+										<th>Nilai</th>
+										<th>Konv</th>
+										<th>Pre</th>
+										<th>Nilai</th>
+										<th>Konv</th>
+										<th>Pre</th>
+										<th>Nilai</th>
+										<th>Konv</th>
+										<th>Pre</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for nilai in nilaitotal %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ nilai.mapel.nama_mapel }}</td>
+									<td>{{ nilai.pengajar.nama_lengkap }}</td>
+									<td>{{ nilai.nilai_sikap }}</td>
+									<td>{{ nilai.nilai_sikap_konv }}</td>
+									<td>{{ nilai.nilai_sikap_pre }}</td>
+									<td>{{ nilai.nilai_keterampilan }}</td>
+									<td>{{ nilai.nilai_keterampilan_konv }}</td>
+									<td>{{ nilai.nilai_keterampilan_pre }}</td>
+									<td>{{ nilai.nilai_kognitif }}</td>
+									<td>{{ nilai.nilai_kognitif_konv }}</td>
+									<td>{{ nilai.nilai_kognitif_pre }}</td>
+									<td>{{ nilai.rerata }}</td>
+									<td>{{ nilai.konversi }}</td>
+									<td>{{ nilai.predikat }}</td>
+									<td>{{ periode.kkm }}</td>
+									{% if "Belum Tuntas" in nilai.keterangan %}
+									<td bgcolor=#ff8080>{{ nilai.keterangan }}</td>
+									{% else %}
+									<td>{{ nilai.keterangan }}</td>
+									{% endif %}
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

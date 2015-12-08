@@ -1,0 +1,173 @@
+<div class="media user-media well-small">
+	<div align="center">
+		<a href="/media/{{user.siswa_user.foto}}{{user.guru_user.foto}}">
+			<img class="media-object img-thumbnail " alt="Tidak ada Foto" 
+			{%if user.is_superuser %}
+			src="/static/img/man_grey.png" width="100" height="100"
+			{% elif not user.siswa_user.foto and not user.guru_user.foto %}
+			src="/static/img/images.jpg" width="100" height="100"
+			{% else %}
+			src="/media/{{user.siswa_user.foto}}{{user.guru_user.foto}}" width="100" height="100"
+			{% endif %} />
+		</a>
+	</div>
+	<div class="media-body">
+		<h5 class="media-heading">
+		{%if user.is_superuser %}<font size="2" color="">Administrator</font>
+		{% else %}<font size="2" color="">{{user.siswa_user.nama_lengkap}}{{user.guru_user.nama_lengkap}}</font>
+		{% endif %}
+		</h5>
+		<ul class="list-unstyled user-info">
+			<li>
+				<span>
+				{%if user.is_superuser %}Admin
+				{% else %}{{user.siswa_user.hak_akses}}{{user.guru_user.jabatan}}
+				{% endif %}
+				</span> 
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="panel panel-default"></div>
+
+
+	<ul id="menu" class="collapse">
+		<li {% if page = "home" %} class="panel active" {% endif %}>
+			<a href="/home/" >
+			<i class="icon-dashboard"></i> Dashboard 
+			</a>
+		</li>
+		{% if request.session.hak_akses != "siswa" and request.session.hak_akses != "guru" %}
+		<li {% if pagegroups = "data" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#data-nav">
+				<i class="icon-briefcase"> </i> Data Master
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</span>
+			</a>
+			<ul {% if pagegroups = "data" %} class="in" {% else %}class="collapse" {% endif %} id="data-nav">
+				<li {% if page = "jabatan" %} class="active" {% endif %}><a href="/data_master/jabatan/"><i class="icon-chevron-right"></i>  Data Jabatan</a></li>
+				<li {% if page = "pangkat" %} class="active" {% endif %}><a href="/data_master/pangkat/"><i class="icon-chevron-right"></i>  Data Pangkat</a></li>
+				<li {% if page = "jurusan" %} class="active" {% endif %}><a href="/data_master/jurusan/"><i class="icon-chevron-right"></i>  Data Jurusan</a></li>
+				<li {% if page = "thnajaran" %} class="active" {% endif %}><a href="/data_master/tahun_ajaran/"><i class="icon-chevron-right"></i>  Data Tahun Ajaran</a></li>
+				
+				<!--li {% if page = "ruang" %} class="active" {% endif %}><a href="/ruang/"><i class="icon-chevron-right"></i>  Data Ruang Kelas</a></li-->
+				<li {% if page = "mapel" %} class="active" {% endif %}><a href="/data_master/mapel/"><i class="icon-chevron-right"></i>  Data Mata Pelajaran</a></li>
+				<li {% if page = "kompetensi" %} class="active" {% endif %}><a href="/data_master/kompetensi/"><i class="icon-chevron-right"></i>  Data Kompetensi Kejuruan</a></li>
+				<li {% if page = "mapelun" %} class="active" {% endif %}><a href="/data_master/mapelun/"><i class="icon-chevron-right"></i>  Data Mapel UN </a></li>
+				<li {% if page = "ruang" %} class="active" {% endif %}><a href="/data_master/ruang/"><i class="icon-chevron-right"></i>  Data Ruang</a></li>
+				<!--li {% if page = "guru" %} class="active" {% endif %}><a href="/guru/"><i class="icon-chevron-right"></i>  Data Guru</a></li>
+				<li {% if page = "siswa" %} class="active" {% endif %}><a href="/siswa/"><i class="icon-chevron-right"></i>  Data Siswa</a></li-->
+			</ul>
+		</li>
+		{% endif %}
+		{% if request.session.hak_akses != "siswa" %}
+		<li {% if pagegroups = "kepegawaian" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#kepegawaian-nav">
+				<i class="icon-user"> </i> Kepegawaian
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</span>
+			</a>
+			<ul {% if pagegroups = "kepegawaian" %} class="in" {% else %}class="collapse" {% endif %} id="kepegawaian-nav">
+				<li {% if page = "guru" %} class="active" {% endif %}><a href="/kepegawaian/guru/"><i class="icon-chevron-right"></i>  Data Guru</a></li>
+				{% if request.session.hak_akses != "guru" %}
+				<li {% if page = "absensiguru" %} class="active" {% endif %}><a href="/kepegawaian/absensi/"><i class="icon-chevron-right"></i>  Absensi Guru</a></li>
+				{% endif %}
+			</ul>
+		</li>
+		{% endif %}
+		{% if request.session.hak_akses != "siswa" %}
+		<li {% if pagegroups = "kesiswaan" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#kesiswaan-nav">
+				<i class="icon-group"> </i> Kesiswaan
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</span>
+			</a>
+			<ul {% if pagegroups = "kesiswaan" %} class="in" {% else %}class="collapse" {% endif %} id="kesiswaan-nav">
+				<li {% if page = "siswa" %} class="active" {% endif %}><a href="/kesiswaan/siswa/"><i class="icon-chevron-right"></i>  Data Siswa</a></li>
+				<li {% if page = "kelas" %} class="active" {% endif %}><a href="/kesiswaan/kelas/"><i class="icon-chevron-right"></i>  Data Kelas Siswa</a></li>
+				<li {% if page = "absensisiswa" %} class="active" {% endif %}><a href="/kesiswaan/absensi/"><i class="icon-chevron-right"></i>  Absensi Siswa</a></li>
+			</ul>
+		</li>
+		{% endif %}
+		<li {% if pagegroups = "jadwalkbm" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#jadwalkbm-nav">
+				<i class="icon-table"> </i> Jadwal KBM
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</a>
+			<ul {% if pagegroups = "jadwalkbm" %} class="in" {% else %}class="collapse" {% endif %} id="jadwalkbm-nav">
+			{% if request.session.hak_akses != "siswa" %}
+				<li {% if page = "waktu" %} class="active" {% endif %}><a href="/jadwal/waktu/"><i class="icon-chevron-right"></i>  Data Jam KBM</a></li>
+				<li {% if page = "jadwal" %} class="active" {% endif %}><a href="/jadwal/kelas/"><i class="icon-chevron-right"></i>  Data Jadwal KBM</a></li>
+			{% endif %}
+			{% if request.session.hak_akses == "siswa" or request.session.hak_akses == "guru" %}
+				<li {% if page = "myjadwal" %} class="active" {% endif %}><a href="/jadwal/jadwalku"><i class="icon-chevron-right"></i>  Jadwal Saya</a></li>
+			{% endif %}
+			</ul>
+		</li>
+		<li {% if page = "kalender" %} class="panel active" {% else %}class="panel" {% endif %}>
+			<a href="/kalender/" >
+			<i class="icon-calendar"></i> Kalender Akademik
+			</a>                   
+		</li>
+		{% if request.session.hak_akses != "siswa" %}
+		<li {% if pagegroups == "penilaian" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#penilaian-nav">
+				<i class="icon-pencil"> </i> Penilaian
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</a>
+			<ul {% if pagegroups = "penilaian" %} class="in" {% else %}class="collapse" {% endif %} id="penilaian-nav">
+				{% if request.session.hak_akses != "siswa" and request.session.hak_akses != "guru" %}
+				<li {% if page = "periode" %} class="active" {% endif %}><a href="/penilaian/periode/"><i class="icon-chevron-right"></i>  Data Periode</a></li>
+				<li {% if page = "nilai" %} class="active" {% endif %}><a href="/penilaian/nilai/"><i class="icon-chevron-right"></i>  Data Nilai Siswa</a></li>
+				{%endif%}
+				{% if request.session.hak_akses == "guru" %}
+				<li {% if page = "rekap_nilai" %} class="active" {% endif %}><a href="/penilaian/rekap/"><i class="icon-chevron-right"></i>  Rekap Nilai</a></li>
+				<li {% if page = "rekap_kompetensi" %} class="active" {% endif %}><a href="/penilaian/kompetensi/"><i class="icon-chevron-right"></i>  Rekap Kompetensi</a></li>
+				{%endif%}
+				{%if request.session.hak_akses !=  "siswa"%}
+				<li {% if page = "rekap_us" %} class="active" {% endif %}><a href="/penilaian/us"><i class="icon-chevron-right"></i>  Data Nilai Ujian Sekolah</a></li>
+				<li {% if page = "rekap_un" %} class="active" {% endif %}><a href="/penilaian/un"><i class="icon-chevron-right"></i>  Data Nilai Ujian Nasional</a></li>
+				{%endif%}
+			</ul>
+		</li>
+		{% endif %}
+		{% if request.session.hak_akses == "siswa" %}
+		<li {% if page = "nilaiku" %} class="panel active" {% else %}class="panel" {% endif %}>
+			<a href="/penilaian/nilaiku" >
+			<i class="icon-pencil"></i> Nilai Saya
+			</a>                   
+		</li>
+		{% endif %}
+		{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+		<li {% if pagegroups = "absensi" %} class="panel active"{% else %}class="panel" {% endif %}>
+			<a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#laporan-nav">
+				<i class="icon-book"> </i> Laporan
+				<span class="pull-right">
+				<i class="icon-chevron-left"></i>
+			</a>
+			<ul {% if pagegroups = "laporan" %} class="in" {% else %}class="collapse" {% endif %} id="laporan-nav">
+				<li {% if page = "absensi_siswa" %} class="active" {% endif %}><a href="/laporan/absensi/siswa"><i class="icon-chevron-right"></i>  Absensi Siswa</a></li>
+				<li {% if page = "absensi_guru" %} class="active" {% endif %}><a href="/laporan/absensi/guru"><i class="icon-chevron-right"></i>  Absensi Guru</a></li>
+				<li {% if page = "rapor" %} class="active" {% endif %}><a href="/laporan/rapor/"><i class="icon-chevron-right"></i>  Rapor</a></li>
+				<li {% if page = "transkrip" %} class="active" {% endif %}><a href="/laporan/transkrip/"><i class="icon-chevron-right"></i>  Transkrip Nilai</a></li>
+			</ul>
+		</li>
+		{% endif %}
+		<!--li {% if page = "materi" %} class="panel active" {% else %}class="panel" {% endif %}>
+			<a href="/materi/" >
+			<i class="icon-rocket"></i> Download Materi
+			</a>                   
+		</li-->
+		{% if request.session.hak_akses = "Admin" or request.session.hak_akses = "staf" or request.session.hak_akses = "kepsek" %}
+		<li {% if page = "user" %} class="panel active" {% else %}class="panel" {% endif %}>
+			<a href="/user/" >
+			<i class="icon-lock"></i> Pengaturan User
+			</a>                   
+		</li>
+		{% endif %}
+	</ul>

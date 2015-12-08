@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}Silahkan Pilih Kelas{% endautoescape %} ({{tahun}})</h5>
+				<div class="toolbar tooltip-demo">
+					<a href="all/{{thnajaran_id}}"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Lihat semua jadwal"><i class="icon-list"> Semua</i></a>
+				</div>
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+				<form method="post">{% csrf_token %}
+						<div class="col-sm-3">
+							<table border="0">
+							<tr><td>
+							<select class="form-control chzn-select" id="thn_ajaran" name="thn_ajaran" data-placement="left">
+								<option value="0" selected="selected">Pilih Tahun Ajaran</option>
+							{% for thn in thnajaran %}
+								<option value="{{ thn.id }}">{{ thn.tahun_ajaran }}</option>
+							{% endfor %}
+							</select> 
+							</td><td>
+							<button class="btn btn-default btn-sm btn-round"><i class="icon-arrow-right"></i></button>
+							</div>
+							</td></tr>
+							</table>
+						</form>
+						</div>
+						</form><br><br>
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Kelas</th>
+								<th>Jurusan</th>
+								<th>Jumlah Kuota</th>
+								<th>Wali Kelas</th>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+						{% for kelas in datanya %}
+						<tr>
+							<td>{{ kelas.nama_kelas }}</td>
+							<td>{{ kelas.jurusan }}</td>
+							<td>{{ kelas.siswa.count }}/{{ kelas.jumlah_kuota }}</td>
+							<td>{{ kelas.wali_kelas }}</td>
+							<td>
+								<div class="tooltip-demo" align="right">
+									<a href="/jadwal/kelas/{{kelas.id}}" type="button" class="btn btn-info btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Atur Jadwal KBM"><i class="icon-table"></i></a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

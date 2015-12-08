@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-book"></i></div>
+					<h5>Pilih rentang waktu {{heading}}</h5>
+			</header>
+			<div class="body">
+				<form method="post" action="cetak/" target="_blank">{% csrf_token %}
+					<div class="form-group col-lg-3">
+						<label>Mulai tanggal:</label><input type="text" class="form-control" name="mulai_tanggal" id="dp1" />
+					</div>
+					<div class="form-group col-lg-3">
+						<label>Sampai tanggal:</label><input type="text" class="form-control" name="sampai_tanggal" id="dp2" />
+					</div>
+					<div class="form-group col-lg-3"><br>
+						<button class="btn btn-default btn-round"><i class="icon-print icon-2x"></i></button>
+					</div>
+				</form><br><br><br><br>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

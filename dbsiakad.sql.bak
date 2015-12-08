@@ -1,0 +1,1102 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.6
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 26, 2015 at 08:29 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `dbsiakad`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absensi_absensiguru`
+--
+
+CREATE TABLE IF NOT EXISTS `absensi_absensiguru` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `guru_id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jam_ke_id` int(11) DEFAULT NULL,
+  `status` varchar(20) NOT NULL,
+  `keterangan` longtext NOT NULL,
+  `tgl_entry` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `absensi_absensiguru_0ab5c8f0` (`guru_id`),
+  KEY `absensi_absensiguru_46a4515b` (`jam_ke_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `absensi_absensiguru`
+--
+
+INSERT INTO `absensi_absensiguru` (`id`, `guru_id`, `tanggal`, `jam_ke_id`, `status`, `keterangan`, `tgl_entry`) VALUES
+(1, 5, '2015-04-13', NULL, 'Sakit', '', '2015-04-20'),
+(2, 4, '2015-04-13', NULL, 'Sakit', '', '2015-04-20'),
+(3, 4, '2015-04-14', 7, 'Ijin', 'Mengambil naskah UN', '2015-04-20'),
+(4, 6, '2015-04-14', NULL, 'Alpha', '', '2015-04-20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absensi_absensisiswa`
+--
+
+CREATE TABLE IF NOT EXISTS `absensi_absensisiswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `siswa_id` int(11) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `keterangan` longtext NOT NULL,
+  `tgl_entry` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `absensi_absensisiswa_245bda0a` (`siswa_id`),
+  KEY `absensi_absensisiswa_f2c1e698` (`kelas_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`permission_id`),
+  KEY `auth_group_permissions_5f412f9a` (`group_id`),
+  KEY `auth_group_permissions_83d7f98b` (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permission`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
+  KEY `auth_permission_37ef4eb4` (`content_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
+(1, 'Can add log entry', 1, 'add_logentry'),
+(2, 'Can change log entry', 1, 'change_logentry'),
+(3, 'Can delete log entry', 1, 'delete_logentry'),
+(4, 'Can add permission', 2, 'add_permission'),
+(5, 'Can change permission', 2, 'change_permission'),
+(6, 'Can delete permission', 2, 'delete_permission'),
+(7, 'Can add group', 3, 'add_group'),
+(8, 'Can change group', 3, 'change_group'),
+(9, 'Can delete group', 3, 'delete_group'),
+(10, 'Can add user', 4, 'add_user'),
+(11, 'Can change user', 4, 'change_user'),
+(12, 'Can delete user', 4, 'delete_user'),
+(13, 'Can add content type', 5, 'add_contenttype'),
+(14, 'Can change content type', 5, 'change_contenttype'),
+(15, 'Can delete content type', 5, 'delete_contenttype'),
+(16, 'Can add session', 6, 'add_session'),
+(17, 'Can change session', 6, 'change_session'),
+(18, 'Can delete session', 6, 'delete_session'),
+(19, 'Can add thn ajaran', 7, 'add_thnajaran'),
+(20, 'Can change thn ajaran', 7, 'change_thnajaran'),
+(21, 'Can delete thn ajaran', 7, 'delete_thnajaran'),
+(22, 'Can add jurusan', 8, 'add_jurusan'),
+(23, 'Can change jurusan', 8, 'change_jurusan'),
+(24, 'Can delete jurusan', 8, 'delete_jurusan'),
+(25, 'Can add jabatan', 9, 'add_jabatan'),
+(26, 'Can change jabatan', 9, 'change_jabatan'),
+(27, 'Can delete jabatan', 9, 'delete_jabatan'),
+(28, 'Can add pangkat', 10, 'add_pangkat'),
+(29, 'Can change pangkat', 10, 'change_pangkat'),
+(30, 'Can delete pangkat', 10, 'delete_pangkat'),
+(31, 'Can add kelas', 11, 'add_kelas'),
+(32, 'Can change kelas', 11, 'change_kelas'),
+(33, 'Can delete kelas', 11, 'delete_kelas'),
+(34, 'Can add kelas_ siswa', 12, 'add_kelas_siswa'),
+(35, 'Can change kelas_ siswa', 12, 'change_kelas_siswa'),
+(36, 'Can delete kelas_ siswa', 12, 'delete_kelas_siswa'),
+(37, 'Can add siswa', 13, 'add_siswa'),
+(38, 'Can change siswa', 13, 'change_siswa'),
+(39, 'Can delete siswa', 13, 'delete_siswa'),
+(40, 'Can add ortu', 14, 'add_ortu'),
+(41, 'Can change ortu', 14, 'change_ortu'),
+(42, 'Can delete ortu', 14, 'delete_ortu'),
+(43, 'Can add guru', 15, 'add_guru'),
+(44, 'Can change guru', 15, 'change_guru'),
+(45, 'Can delete guru', 15, 'delete_guru'),
+(46, 'Can add absensi siswa', 16, 'add_absensisiswa'),
+(47, 'Can change absensi siswa', 16, 'change_absensisiswa'),
+(48, 'Can delete absensi siswa', 16, 'delete_absensisiswa'),
+(49, 'Can add absensi guru', 17, 'add_absensiguru'),
+(50, 'Can change absensi guru', 17, 'change_absensiguru'),
+(51, 'Can delete absensi guru', 17, 'delete_absensiguru'),
+(52, 'Can add mapel', 18, 'add_mapel'),
+(53, 'Can change mapel', 18, 'change_mapel'),
+(54, 'Can delete mapel', 18, 'delete_mapel'),
+(55, 'Can add kompetensi kejuruan', 19, 'add_kompetensikejuruan'),
+(56, 'Can change kompetensi kejuruan', 19, 'change_kompetensikejuruan'),
+(57, 'Can delete kompetensi kejuruan', 19, 'delete_kompetensikejuruan'),
+(58, 'Can add waktu', 20, 'add_waktu'),
+(59, 'Can change waktu', 20, 'change_waktu'),
+(60, 'Can delete waktu', 20, 'delete_waktu'),
+(61, 'Can add jadwal', 21, 'add_jadwal'),
+(62, 'Can change jadwal', 21, 'change_jadwal'),
+(63, 'Can delete jadwal', 21, 'delete_jadwal'),
+(64, 'Can add kegiatan', 22, 'add_kegiatan'),
+(65, 'Can change kegiatan', 22, 'change_kegiatan'),
+(66, 'Can delete kegiatan', 22, 'delete_kegiatan'),
+(67, 'Can add mapel diampu', 23, 'add_mapeldiampu'),
+(68, 'Can change mapel diampu', 23, 'change_mapeldiampu'),
+(69, 'Can delete mapel diampu', 23, 'delete_mapeldiampu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) NOT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(1, 'pbkdf2_sha256$12000$hTU8G57nHHEG$OgqWq0mr5pFSAD1g0a4ECIL8ppYczDz0k4OoUFAFwnU=', '2015-04-26 05:39:45.529000', 1, 'admin', '', '', '', 1, 1, '2015-04-05 17:38:57.731000'),
+(2, 'pbkdf2_sha256$12000$2L2O93nrVvl5$H3F/oeXGdk+TowVBE38LY+wBIxtNvrra3CqqWPuOfQI=', '2015-04-25 08:18:08.993000', 0, '196104041986031018', 'kepsek', '', '', 0, 1, '2015-04-05 17:45:10.452000'),
+(3, 'pbkdf2_sha256$12000$aph5aR3xep0n$s9btjkJ/UryMonYK1Z0Dgv+wn5qM93sUa2G0TIS/h0s=', '2015-04-24 06:59:01.124000', 0, '196004041985031019', 'waka', '', '', 0, 1, '2015-04-05 17:49:39.941000'),
+(4, 'pbkdf2_sha256$12000$k1PlXrWDMnSv$rz4rnHjg/8JZLxhhUolBdOayJHpjuZOfYqa/D8SF+TM=', '2015-04-25 07:13:49.968000', 0, '195910261984031009', 'staf', '', '', 0, 1, '2015-04-05 17:52:00.172000'),
+(5, 'pbkdf2_sha256$12000$EYhcu4IIUOS6$1lBGMR8409n761Aaby0T2KAEp8r+ifyTFnsxe3f9Ngg=', '2015-04-24 18:28:07.154000', 0, '196106201981031003', 'guru', '', '', 0, 1, '2015-04-05 17:55:11.000000'),
+(6, 'pbkdf2_sha256$12000$Mxm4DUfAR7TH$eObzFPzhXvknEPDixOfBD64wWIFV/hW8c2PE2vfP8aY=', '2015-04-05 17:58:34.830000', 0, '196106271986031009', 'guru', '', '', 0, 1, '2015-04-05 17:58:34.831000'),
+(7, 'pbkdf2_sha256$12000$7ndVjxD2L5tN$hxwU2GUh8E+63oKeMrDHg2CVHBRR0w63SVZ/aX8O3AA=', '2015-04-05 18:02:57.685000', 0, '196111081986031015', 'guru', '', '', 0, 1, '2015-04-05 18:02:57.685000'),
+(8, 'pbkdf2_sha256$12000$ugdGHn4GLpL6$Ky/N3PCWm/fg3n30Bo7F96Ivert9Lg7VvIv8ZVK/NVY=', '2015-04-17 08:44:52.171000', 0, '131784220', 'guru', '', '', 0, 1, '2015-04-05 18:05:54.168000'),
+(9, 'pbkdf2_sha256$12000$YLg3aHWnV8II$u8JrdboyAMge/VcF1XDVT1kDpNGkcePjZ+FJMmBV6+A=', '2015-04-05 18:08:15.791000', 0, '196105081986031012', 'guru', '', '', 0, 1, '2015-04-05 18:08:15.792000'),
+(10, 'pbkdf2_sha256$12000$yI7nifvs3JRP$CdW2Pib0+SbEUsTpa6pAvzmvVtNU8cIyz+uFfs7TKSQ=', '2015-04-05 18:14:01.621000', 0, '196405191989031009', 'guru', '', '', 0, 1, '2015-04-05 18:14:01.622000'),
+(11, 'pbkdf2_sha256$12000$57r9k9CvEReY$5Tkpws5RwxnB5Fz/O52R5biTpps/JDbLgCyvU2F0ZS4=', '2015-04-25 03:12:39.743000', 0, '195906071986022002', 'guru', '', '', 0, 1, '2015-04-06 14:43:05.021000'),
+(12, 'pbkdf2_sha256$12000$3T3GzZ8lGKdv$RJTqV4YDYBhYRdjkbNCTtc7lGZxQ7mCAyzTUamRUuvA=', '2015-04-06 15:00:54.916000', 0, '196210201986031016', 'guru', '', '', 0, 1, '2015-04-06 15:00:54.916000'),
+(13, 'pbkdf2_sha256$12000$smhfBTrIzCVC$maJ/sqo/3hjWIkaK09fQsN84zoDcAQpfCOQUJZpO0TU=', '2015-04-25 15:34:02.940000', 0, '23196', 'siswa', '', '', 0, 1, '2015-04-07 07:48:18.332000'),
+(14, 'pbkdf2_sha256$12000$9cUVDM9wVx2b$YrfpNqNq1c7HnTsK25slfL9X9TvwlkwEmxaJcY2Z9UY=', '2015-04-20 09:31:22.267000', 0, '23198', 'siswa', '', '', 0, 1, '2015-04-07 08:12:17.694000'),
+(15, 'pbkdf2_sha256$12000$3TcXg8R1VzrT$XNzxLOY7wXljJJ1v+AA+Zx+oUU2+OkycZ5Tv5Xstvak=', '2015-04-09 09:28:54.584000', 0, '23199', 'siswa', '', '', 0, 1, '2015-04-07 08:19:23.754000'),
+(16, 'pbkdf2_sha256$12000$olHSFTyJFdwX$6lu1jwwlg4qoxthO2RjGXXLTuOrZe9xu65Eq3UHw9TQ=', '2015-04-07 08:22:40.007000', 0, '23201', 'siswa', '', '', 0, 1, '2015-04-07 08:22:40.008000'),
+(17, 'pbkdf2_sha256$12000$wiwTbvBBGJyp$gTptgyLjoG0K4nsRBX+PRBLz+U4dquDO4TnofyImyUE=', '2015-04-19 13:27:53.246000', 0, '23202', 'siswa', '', '', 0, 1, '2015-04-07 08:28:18.584000'),
+(18, 'pbkdf2_sha256$12000$A9VGJV9DkvGC$h0qiUHsOTl87puSBf/jUy5NkU7fHoBb1BW0Br+4OGYw=', '2015-04-18 15:25:49.649000', 0, '23220', 'siswa', '', '', 0, 1, '2015-04-07 08:32:47.389000'),
+(19, 'pbkdf2_sha256$12000$PqWK4eO1VWWR$KorBbivS+5P3F5swxlvle5bDxNFInQzfnlxsrvXfVPk=', '2015-04-07 08:35:59.318000', 0, '23221', 'siswa', '', '', 0, 1, '2015-04-07 08:35:59.318000'),
+(20, 'pbkdf2_sha256$12000$1pf8JsNQneGv$YuQmW6Il2xkDNshyiGC2KIdDdK2ir8f2/pvZ0z6HlyU=', '2015-04-15 20:38:01.781000', 0, '23225', 'siswa', '', '', 0, 1, '2015-04-07 08:42:46.558000'),
+(21, 'pbkdf2_sha256$12000$PxqBNJcS5AfL$Oe8q9qS2AJmHel8n4Q/LdiPMdwZ1cYOVxiXbBbg7oXg=', '2015-04-07 08:48:12.816000', 0, '23297', 'siswa', '', '', 0, 1, '2015-04-07 08:48:12.816000'),
+(22, 'pbkdf2_sha256$12000$HrpLBKt4LgWc$NwPV9Jj5mDPBnpNh3cjZ7A5ugF8bhvXfLDfaYuPaXow=', '2015-04-24 09:31:41.068000', 0, '23298', 'siswa', '', '', 0, 1, '2015-04-22 19:00:15.262000'),
+(23, 'pbkdf2_sha256$12000$aihGGi7joygi$lsx8Mmnq8wg+i7A0AEudNfE1fNZ5ieU0owTTHEBKGEE=', '2015-04-25 06:20:38.788000', 0, '23203', 'siswa', '', '', 0, 1, '2015-04-25 06:20:38.789000'),
+(24, 'pbkdf2_sha256$12000$SRAk4DT2olbr$wSdKVwgB2zmlAN3Mhw7UhGyN8owMPIPns2DXYLWoCsM=', '2015-04-26 05:36:32.159000', 0, '19216823456', 'staf', '', '', 0, 1, '2015-04-25 07:16:12.186000'),
+(25, 'pbkdf2_sha256$12000$JEsSxhWeeJlW$TYpYQFHdtT3gm6wtpAA5dswQv9K/HUZz4n23b2cydMg=', '2015-04-26 05:44:08.359000', 0, '195907201986031016', 'guru', '', '', 0, 1, '2015-04-26 05:44:08.359000'),
+(26, 'pbkdf2_sha256$12000$0cUId62MYi00$02jvOgttt3dRRsdthAc76q05ewwepQrf7hsXi8+Pzko=', '2015-04-26 05:53:56.516000', 0, '196104191989031005', 'guru', '', '', 0, 1, '2015-04-26 05:53:56.516000'),
+(27, 'pbkdf2_sha256$12000$CU8zrKeYtPiE$+MX52RjTnw7CbbHEUfVy//T54aMm1Bcqpir2Ay5S1HY=', '2015-04-26 05:56:02.126000', 0, '23197', 'siswa', '', '', 0, 1, '2015-04-26 05:56:02.126000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`group_id`),
+  KEY `auth_user_groups_6340c63c` (`user_id`),
+  KEY `auth_user_groups_5f412f9a` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+CREATE TABLE IF NOT EXISTS `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permissions_6340c63c` (`user_id`),
+  KEY `auth_user_user_permissions_83d7f98b` (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_master_jabatan`
+--
+
+CREATE TABLE IF NOT EXISTS `data_master_jabatan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_jabatan` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `data_master_jabatan`
+--
+
+INSERT INTO `data_master_jabatan` (`id`, `nama_jabatan`) VALUES
+(1, 'Kepala Sekolah'),
+(2, 'Waka. Kurikulum'),
+(3, 'Staf Tata Usaha'),
+(4, 'Staf Pengajar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_master_jurusan`
+--
+
+CREATE TABLE IF NOT EXISTS `data_master_jurusan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_jurusan` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `data_master_jurusan`
+--
+
+INSERT INTO `data_master_jurusan` (`id`, `nama_jurusan`) VALUES
+(1, 'Teknik Gambar Bangunan'),
+(2, 'Kontruksi Kerja Kayu'),
+(3, 'Rekayasa Perangkat Lunak'),
+(4, 'Teknik Kendaraan Ringan'),
+(5, 'Teknik Audio Video'),
+(6, 'Teknik Komputer Jaringan'),
+(7, 'Teknik Permesinan'),
+(8, 'Instalasi Tenaga Listrik'),
+(9, 'Animasi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_master_pangkat`
+--
+
+CREATE TABLE IF NOT EXISTS `data_master_pangkat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_pangkat` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `data_master_pangkat`
+--
+
+INSERT INTO `data_master_pangkat` (`id`, `nama_pangkat`) VALUES
+(1, 'Pembina'),
+(2, 'Pembina Tk. 1'),
+(3, 'Pembina Utama Muda');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_master_thnajaran`
+--
+
+CREATE TABLE IF NOT EXISTS `data_master_thnajaran` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tahun_ajaran` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `data_master_thnajaran`
+--
+
+INSERT INTO `data_master_thnajaran` (`id`, `tahun_ajaran`) VALUES
+(1, '2014/2015');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+CREATE TABLE IF NOT EXISTS `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_6340c63c` (`user_id`),
+  KEY `django_admin_log_37ef4eb4` (`content_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+INSERT INTO `django_admin_log` (`id`, `action_time`, `user_id`, `content_type_id`, `object_id`, `object_repr`, `action_flag`, `change_message`) VALUES
+(1, '2015-04-19 09:01:57.650000', 1, 4, '5', '196106201981031003', 2, 'Changed is_active.'),
+(2, '2015-04-19 09:02:28.236000', 1, 4, '5', '196106201981031003', 2, 'Changed is_active and is_staff.'),
+(3, '2015-04-19 09:04:22.634000', 1, 4, '5', '196106201981031003', 2, 'Changed is_superuser.'),
+(4, '2015-04-19 09:04:40.613000', 1, 4, '5', '196106201981031003', 2, 'Changed is_active.'),
+(5, '2015-04-19 09:05:19.132000', 1, 4, '5', '196106201981031003', 2, 'Changed is_staff and is_superuser.'),
+(6, '2015-04-19 09:06:07.264000', 1, 4, '5', '196106201981031003', 2, 'Changed is_active.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_content_type`
+--
+
+CREATE TABLE IF NOT EXISTS `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_label` (`app_label`,`model`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+INSERT INTO `django_content_type` (`id`, `name`, `app_label`, `model`) VALUES
+(1, 'log entry', 'admin', 'logentry'),
+(2, 'permission', 'auth', 'permission'),
+(3, 'group', 'auth', 'group'),
+(4, 'user', 'auth', 'user'),
+(5, 'content type', 'contenttypes', 'contenttype'),
+(6, 'session', 'sessions', 'session'),
+(7, 'thn ajaran', 'data_master', 'thnajaran'),
+(8, 'jurusan', 'data_master', 'jurusan'),
+(9, 'jabatan', 'data_master', 'jabatan'),
+(10, 'pangkat', 'data_master', 'pangkat'),
+(11, 'kelas', 'kelas', 'kelas'),
+(12, 'kelas_ siswa', 'kelas', 'kelas_siswa'),
+(13, 'siswa', 'kesiswaan', 'siswa'),
+(14, 'ortu', 'kesiswaan', 'ortu'),
+(15, 'guru', 'kepegawaian', 'guru'),
+(16, 'absensi siswa', 'absensi', 'absensisiswa'),
+(17, 'absensi guru', 'absensi', 'absensiguru'),
+(18, 'mapel', 'mapel', 'mapel'),
+(19, 'kompetensi kejuruan', 'mapel', 'kompetensikejuruan'),
+(20, 'waktu', 'jadwal', 'waktu'),
+(21, 'jadwal', 'jadwal', 'jadwal'),
+(22, 'kegiatan', 'jadwal', 'kegiatan'),
+(23, 'mapel diampu', 'mapel', 'mapeldiampu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_session`
+--
+
+CREATE TABLE IF NOT EXISTS `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_b7b81f0c` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('0076jbbur1emisvxxc4vg17zcmpkdxdp', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-25 21:17:53.838000'),
+('0om45fpl3224ih6gb3j2b6da9d79xs0a', 'OTBkODhiYTU2YmI4ZWU2NzY4NDAzOWIzZTdiYzY2OTcyZGU2YmIxMzp7fQ==', '2015-04-19 09:23:04.937000'),
+('0z8ag4xbaf0mc3ra6gvl4lz0tm4trybm', 'OGU2NTc1YWRiNTMxY2NlMjMxYjhjZDM5NzQyZWFjMWRiM2IzMjM4NDp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJpZGtlbGFzIjoyLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-09 15:23:41.109000'),
+('1813qdlk605z0oyb5x1wchdmxstl54im', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-18 20:38:16.831000'),
+('1xs4zvoi2qjgl3lg30scmxogmmlr63ba', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-25 09:05:17.627000'),
+('34po8s8u8pfryhptv29isn30mc20g3zh', 'Zjc2NDQwZmEyNmI2NzgzMDZlZjgyNmVkZGYxZTM3YWIyY2I3OTc4OTp7ImlkX3VzZXIiOjYsIl9hdXRoX3VzZXJfaWQiOjE4LCJuYW1hX3VzZXIiOiJEaWFqZW5nIFJhZ2lsIER5YWggRW5nZ2FyIE5lbnR5YXMgU2FudHlhIFB1dHJpIiwidXNlcmlkIjoxOCwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSJ9', '2015-04-18 21:25:49.700000'),
+('3j81zdymauxr7vbwofdci9g0rdpd3d80', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-07 13:31:22.883000'),
+('3zd1h1msrqvtu7izbb7k62561vtq7c07', 'MjExOGE4YWE3M2VhODM1NDQ4YzlkYjZkM2YyNjE4OGQzODE0MWUzMjp7ImlkX3VzZXIiOjEyLCJfYXV0aF91c2VyX2lkIjoyNCwibmFtYV91c2VyIjoiTnVyIEtvbWFyaWEiLCJ1c2VyaWQiOjI0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InN0YWYiLCJyZWciOiIxOTIxNjgyMzQ1NiJ9', '2015-04-25 13:22:47.690000'),
+('45895o7dnh6gnjpubuhdc77iftkf8da7', 'NDhlZjViY2M5ZmNhZjNhZTA4ZTM0ODRmOTg4ODgxOWFkZDU0ZTYxYTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSIsInJlZyI6IjIzMTk2In0=', '2015-04-25 09:06:42.513000'),
+('5sxr6tcg88ifu3ihoxqwzhishxfvwamb', 'OTBkODhiYTU2YmI4ZWU2NzY4NDAzOWIzZTdiYzY2OTcyZGU2YmIxMzp7fQ==', '2015-04-20 17:11:24.115000'),
+('6o6hwfyxcpxnnhar1d1lcj7hqlxlsql7', 'MDFlOWRhN2JjMDg5NTBiZjNjODFmMmM2ZGQ4MjliZGMyZmE4MTFmMzp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJpZGtlbGFzIjo1LCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-25 13:33:07.238000'),
+('73s077dpwcjdc17lb4dzwuk1j8ttzvpw', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-16 02:30:16.031000'),
+('7a7losrap8kuvmpxp8b351s6itltdr89', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-20 11:10:16.857000'),
+('7e80z3xtn7my24oe3i5at9hsenrpriau', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-24 22:26:17.060000'),
+('7h1l8zhea9hix1a8rd858v712z5u67b7', 'MjExOGE4YWE3M2VhODM1NDQ4YzlkYjZkM2YyNjE4OGQzODE0MWUzMjp7ImlkX3VzZXIiOjEyLCJfYXV0aF91c2VyX2lkIjoyNCwibmFtYV91c2VyIjoiTnVyIEtvbWFyaWEiLCJ1c2VyaWQiOjI0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InN0YWYiLCJyZWciOiIxOTIxNjgyMzQ1NiJ9', '2015-04-26 11:36:32.378000'),
+('7hpwl4541a9w6yfja1npl1ynpwdz4k4v', 'N2I3NDAxNDE2MGI1ZjI4MTRmZjQ5NzdiODliMWJhMDM0NTQzMjc4NTp7ImlkX3VzZXIiOjEwLCJfYXV0aF91c2VyX2lkIjoyMiwibmFtYV91c2VyIjoiWmFlbmFsIFNpc3dhbnRvIEFyaWJvd28iLCJ1c2VyaWQiOjIyLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InNpc3dhIiwicmVnIjoiMjMyOTgifQ==', '2015-04-24 15:31:41.133000'),
+('8cc7yqf7866st1kq9s9g0v18k56xt4kd', 'OTBkODhiYTU2YmI4ZWU2NzY4NDAzOWIzZTdiYzY2OTcyZGU2YmIxMzp7fQ==', '2015-04-19 10:02:25.268000'),
+('98omvpq0wznf2af0m7qfhmei7q464q7i', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-26 11:39:45.587000'),
+('b48opp530ho9rcj9j1ksbeu855y0ls62', 'OTBkODhiYTU2YmI4ZWU2NzY4NDAzOWIzZTdiYzY2OTcyZGU2YmIxMzp7fQ==', '2015-04-20 17:12:16.681000'),
+('bro7tsyui7hxtkyg36sfqgqeh7hu0s8x', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-14 21:35:41.080000'),
+('f9eybc2fnehbjp2src8ao0r3ocyppthx', 'NDhlZjViY2M5ZmNhZjNhZTA4ZTM0ODRmOTg4ODgxOWFkZDU0ZTYxYTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSIsInJlZyI6IjIzMTk2In0=', '2015-04-25 21:34:03.017000'),
+('fn1wdpnsgh2zzs7k2470caoilhypbytu', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-07 19:48:49.952000'),
+('isszoim6zjfr8jfy44yx4jw8kjj9cpt7', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-23 18:38:26.883000'),
+('jb4v1c1rv4mo6nfx1bppw6fq118qrlxt', 'ODYwNmJkZWM5NjA2NTY3OGM2N2JkNzM0NmRmM2QzNTJiN2I2OGI3ZTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjIsIm5hbWFfdXNlciI6IkRycy5Eam9rbyAgUHJhdG1vZGpvIFl1ZGhpIFV0b21vLk1tIiwidXNlcmlkIjoyLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6ImtlcHNlayIsInJlZyI6IjE5NjEwNDA0MTk4NjAzMTAxOCJ9', '2015-04-25 14:18:09.038000'),
+('jz52n4ccvesz0eqs5asv20g4h82ymn7c', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-20 17:13:00.415000'),
+('kh09an0emrduj3hrlbplln0z8iykyjoa', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-16 07:43:14.656000'),
+('kntr9eramfjqbeztob8i72c4udtbwn9w', 'NGE2NjY3MDlkMWZjNTMzYzYxMWZkNjhkZmVkMGVmOWQ2YmUwYWI1Yzp7ImlkX3VzZXIiOjUsIl9hdXRoX3VzZXJfaWQiOjE3LCJuYW1hX3VzZXIiOiJBbGZpYW4gUml6a3kgQWd1bmcgTnVncm9obyIsInVzZXJpZCI6MTcsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoic2lzd2EifQ==', '2015-04-19 19:27:53.290000'),
+('muo2nmvqy273dkgs4dq7c4jeguldooom', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-17 11:55:13.968000'),
+('ngyamworcgz82c4bdrerue891cnoivjz', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-23 12:14:12.437000'),
+('obxw11uniq9ndycmvj4odn75pkb5bwrz', 'NWM3NDViYjhhYWM3YTY1MGM4OTdiMGE3MDhmMWI1ZWM1ZWIyMjM2Yzp7ImlkX3VzZXIiOjQsIl9hdXRoX3VzZXJfaWQiOjUsIm5hbWFfdXNlciI6IkRycy4gQWxveXNpdXMgICBNYXJkanVraSAsIFN0IiwidXNlcmlkIjo1LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6Imd1cnUifQ==', '2015-04-21 18:45:19.095000'),
+('ofgdmc4pbhzg630hdvmihs8zxkjjoph7', 'Mzc3ZWVmMzEwYzFhMzYwZjFjYWIzNzc4NGVjZmRiYWVkOTc0MWE4ZDp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSJ9', '2015-04-09 15:29:37.184000'),
+('pcmh9nxmlrypj1nl0icyn21lwf5maof7', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-23 00:21:45.913000'),
+('ryebfdpwc5yf6taapcq3oh6vomzqz8sh', 'NjA2MDJiOGRiY2UxMjgyNTE2NjhlNmYyOTc0OTE0Y2YzNWQ5YmNiODp7ImlkX3VzZXIiOjEwLCJfYXV0aF91c2VyX2lkIjoxMSwibmFtYV91c2VyIjoiRHJhLiBUcml5YW5pIFN1bGlzdHlhbmluZ3NpaCIsInVzZXJpZCI6MTEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiZ3VydSIsInJlZyI6IjE5NTkwNjA3MTk4NjAyMjAwMiJ9', '2015-04-25 09:12:39.865000'),
+('ttu1a9r5r8kpg8gknekg37tzzfv69ips', 'ZDVmZmEzYTdmNWYxMzQ2YzYxOWQxZWI0YzA0YjFkZDVkYzNjN2E0Mjp7ImlkX3VzZXIiOjIsIl9hdXRoX3VzZXJfaWQiOjE0LCJuYW1hX3VzZXIiOiJBZ2VuZyBCdWRpIEZpcm1hbnN5YWgiLCJ1c2VyaWQiOjE0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InNpc3dhIn0=', '2015-04-17 14:53:09.410000'),
+('tzs3ne13gchjv7x3v4meu02j7cj4mnm3', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-05 23:40:28.338000'),
+('uewux8pim80d9epdp1nh0z3vcxct6279', 'NDhlZjViY2M5ZmNhZjNhZTA4ZTM0ODRmOTg4ODgxOWFkZDU0ZTYxYTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSIsInJlZyI6IjIzMTk2In0=', '2015-04-25 11:44:04.839000'),
+('ugul69svujiz8afrjt3lz2wt3c25rxcs', 'OTBkODhiYTU2YmI4ZWU2NzY4NDAzOWIzZTdiYzY2OTcyZGU2YmIxMzp7fQ==', '2015-04-20 17:11:39.749000'),
+('vd4li40mp5xy3af0cye9abuy9q4hkfgs', 'ZDVmZmEzYTdmNWYxMzQ2YzYxOWQxZWI0YzA0YjFkZDVkYzNjN2E0Mjp7ImlkX3VzZXIiOjIsIl9hdXRoX3VzZXJfaWQiOjE0LCJuYW1hX3VzZXIiOiJBZ2VuZyBCdWRpIEZpcm1hbnN5YWgiLCJ1c2VyaWQiOjE0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InNpc3dhIn0=', '2015-04-20 15:31:22.852000'),
+('vpafkv026q1o23uh3ap1oiab7kxr44iq', 'N2E3NTkzYTA0NGU3MGYxNDExY2FmNGYzNTlmY2JhZmZiMmUyYjFhZjp7Im5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjEsImhha19ha3NlcyI6IkFkbWluIn0=', '2015-04-06 20:30:27.658000'),
+('vtfg85chkmeaz29wddzn6cvu713m80gl', 'Mzc3ZWVmMzEwYzFhMzYwZjFjYWIzNzc4NGVjZmRiYWVkOTc0MWE4ZDp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSJ9', '2015-04-16 08:03:55.944000'),
+('wdeyz8ctzeaplbjvd360xgp8f4ss6tg7', 'MzMwMDMyOGYyNThiMzk1MzM1OGIxZTU0N2I1ZWU0YTExNzM3OGM3Njp7ImlkX3VzZXIiOjMsIl9hdXRoX3VzZXJfaWQiOjQsIm5hbWFfdXNlciI6IkRycy4gSXIuIFB1ZGppICBTYW50b3NvIiwidXNlcmlkIjo0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InN0YWYifQ==', '2015-04-23 00:39:50.480000'),
+('x520phrat4mmf0efjel093odw1ypcg13', 'NDhlZjViY2M5ZmNhZjNhZTA4ZTM0ODRmOTg4ODgxOWFkZDU0ZTYxYTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSIsInJlZyI6IjIzMTk2In0=', '2015-04-25 00:36:08.079000'),
+('xc7lsmmwhq6rcxwnx5kwsc5np4d93ecu', 'MzdkZGY1ODNhMzc0ZTEwMjM0NWZkODc1MWI4MzMzNTA2ZjllOGUwNzp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJpZGtlbGFzIjoyLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-24 15:32:35.409000'),
+('xjqyji8y8vk91ce5yujm9jz4deyzq0r8', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-20 20:44:32.523000'),
+('yws8ndsr2t2f8roeyheeqxfk6h6pkzvq', 'NDhlZjViY2M5ZmNhZjNhZTA4ZTM0ODRmOTg4ODgxOWFkZDU0ZTYxYTp7ImlkX3VzZXIiOjEsIl9hdXRoX3VzZXJfaWQiOjEzLCJuYW1hX3VzZXIiOiJBYmR1bCBBeml6IiwidXNlcmlkIjoxMywiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJoYWtfYWtzZXMiOiJzaXN3YSIsInJlZyI6IjIzMTk2In0=', '2015-04-23 12:39:11.864000'),
+('z9swxsqigkr98lw4xic6ktewmmsxlmsx', 'Nzg1MDMyMDUxNzMyYzVlNzc1YTFjOWJmNThhNjBkMDAwZDRjZDc4MDp7ImlkX3VzZXIiOiJhZG1pbiIsIl9hdXRoX3VzZXJfaWQiOjEsIm5hbWFfdXNlciI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiQWRtaW4ifQ==', '2015-04-21 18:36:41.568000'),
+('zrf95tfp78jciksmlti92scwds6gghen', 'ZWYzNmJiZTVmMGM4OWQ0NzJlYjA5MzZjMjA2Yjc2YmU2NzVmNTI4NDp7ImlkX3VzZXIiOjgsIl9hdXRoX3VzZXJfaWQiOjIwLCJuYW1hX3VzZXIiOiJEaWtreSBQZXJtYWRhbmkiLCJ1c2VyaWQiOjIwLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsImhha19ha3NlcyI6InNpc3dhIn0=', '2015-04-14 22:44:30.760000'),
+('zz4hsd0plibh0fwnsmuk25t2pvgav5e8', 'MjhjNTA3YWQzZWYyM2M1MzRmMDM0MjM4ZjA1MzQwYWJiNjIxODU5MTp7ImlkX3VzZXIiOjEwLCJfYXV0aF91c2VyX2lkIjoxMSwibmFtYV91c2VyIjoiRHJhLiBUcml5YW5pIFN1bGlzdHlhbmluZ3NpaCIsInVzZXJpZCI6MTEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiaGFrX2Frc2VzIjoiZ3VydSJ9', '2015-04-19 18:59:28.093000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_jadwal`
+--
+
+CREATE TABLE IF NOT EXISTS `jadwal_jadwal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `waktu_id` int(11) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `mapel_id` int(11) DEFAULT NULL,
+  `tahun_ajaran_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jadwal_jadwal_dfc7e70d` (`waktu_id`),
+  KEY `jadwal_jadwal_f2c1e698` (`kelas_id`),
+  KEY `jadwal_jadwal_f8dc7222` (`mapel_id`),
+  KEY `jadwal_jadwal_2eaa9131` (`tahun_ajaran_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=171 ;
+
+--
+-- Dumping data for table `jadwal_jadwal`
+--
+
+INSERT INTO `jadwal_jadwal` (`id`, `waktu_id`, `kelas_id`, `mapel_id`, `tahun_ajaran_id`) VALUES
+(115, 1, 4, NULL, 1),
+(116, 2, 4, NULL, 1),
+(117, 3, 4, NULL, 1),
+(118, 4, 4, NULL, 1),
+(119, 5, 4, NULL, 1),
+(120, 6, 4, NULL, 1),
+(121, 7, 4, NULL, 1),
+(122, 8, 4, NULL, 1),
+(123, 9, 4, NULL, 1),
+(124, 10, 4, NULL, 1),
+(125, 11, 4, NULL, 1),
+(126, 12, 4, NULL, 1),
+(127, 13, 4, NULL, 1),
+(128, 14, 4, NULL, 1),
+(129, 15, 4, NULL, 1),
+(130, 16, 4, NULL, 1),
+(131, 17, 4, NULL, 1),
+(132, 18, 4, NULL, 1),
+(133, 19, 4, NULL, 1),
+(134, 20, 4, NULL, 1),
+(135, 21, 4, NULL, 1),
+(136, 22, 4, NULL, 1),
+(137, 23, 4, NULL, 1),
+(138, 24, 4, NULL, 1),
+(139, 25, 4, NULL, 1),
+(140, 26, 4, NULL, 1),
+(141, 27, 4, NULL, 1),
+(142, 28, 4, NULL, 1),
+(143, 1, 5, NULL, 1),
+(144, 2, 5, NULL, 1),
+(145, 3, 5, NULL, 1),
+(146, 4, 5, NULL, 1),
+(147, 5, 5, NULL, 1),
+(148, 6, 5, NULL, 1),
+(149, 7, 5, NULL, 1),
+(150, 8, 5, NULL, 1),
+(151, 9, 5, NULL, 1),
+(152, 10, 5, NULL, 1),
+(153, 11, 5, NULL, 1),
+(154, 12, 5, NULL, 1),
+(155, 13, 5, NULL, 1),
+(156, 14, 5, NULL, 1),
+(157, 15, 5, NULL, 1),
+(158, 16, 5, NULL, 1),
+(159, 17, 5, NULL, 1),
+(160, 18, 5, NULL, 1),
+(161, 19, 5, NULL, 1),
+(162, 20, 5, NULL, 1),
+(163, 21, 5, NULL, 1),
+(164, 22, 5, NULL, 1),
+(165, 23, 5, NULL, 1),
+(166, 24, 5, NULL, 1),
+(167, 25, 5, NULL, 1),
+(168, 26, 5, NULL, 1),
+(169, 27, 5, NULL, 1),
+(170, 28, 5, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_kegiatan`
+--
+
+CREATE TABLE IF NOT EXISTS `jadwal_kegiatan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_kegiatan` varchar(100) NOT NULL,
+  `urgensi` varchar(20) NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `keterangan` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `jadwal_kegiatan`
+--
+
+INSERT INTO `jadwal_kegiatan` (`id`, `nama_kegiatan`, `urgensi`, `tgl_mulai`, `tgl_selesai`, `keterangan`) VALUES
+(2, 'UTS Semester Gasal Tahun Ajaran 2015/2016', 'perhatian', '2015-04-06', '2015-04-11', ''),
+(3, 'Perbaikan UTS Semester Gasal Tahun Ajaran 2015/2016', 'khusus', '2015-04-13', '2015-04-18', ''),
+(4, 'Try Out UN untuk kelas VII', 'penting', '2015-04-20', '2015-04-22', ''),
+(5, 'Peringatan Hari Kartini', 'normal', '2015-04-25', '2015-04-25', ''),
+(7, 'Pentas Seni', 'normal', '2015-04-26', '2015-04-28', ''),
+(8, 'Peringatan Hari Kartini', 'perhatian', '2015-04-01', '2015-04-01', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_waktu`
+--
+
+CREATE TABLE IF NOT EXISTS `jadwal_waktu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hari` varchar(10) NOT NULL,
+  `jam_ke` varchar(5) NOT NULL,
+  `dari_jam` time(6) NOT NULL,
+  `sampai_jam` time(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- Dumping data for table `jadwal_waktu`
+--
+
+INSERT INTO `jadwal_waktu` (`id`, `hari`, `jam_ke`, `dari_jam`, `sampai_jam`) VALUES
+(1, 'Senin', '1-2', '06:30:00.000000', '08:00:00.000000'),
+(2, 'Senin', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(3, 'Senin', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(4, 'Senin', '7-8', '11:15:00.000000', '12:30:00.000000'),
+(5, 'Senin', '9-10', '13:00:00.000000', '14:30:00.000000'),
+(6, 'Selasa', '1-2', '06:30:00.000000', '08:00:00.000000'),
+(7, 'Selasa', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(8, 'Selasa', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(9, 'Selasa', '7-8', '11:15:00.000000', '12:30:00.000000'),
+(10, 'Selasa', '9-10', '13:00:00.000000', '14:30:00.000000'),
+(11, 'Rabu', '1-2', '06:30:00.000000', '08:00:00.000000'),
+(12, 'Rabu', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(13, 'Rabu', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(14, 'Rabu', '7-8', '11:15:00.000000', '12:30:00.000000'),
+(15, 'Rabu', '9-10', '13:00:00.000000', '14:30:00.000000'),
+(16, 'Kamis', '1-2', '06:30:00.000000', '08:00:00.000000'),
+(17, 'Kamis', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(18, 'Kamis', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(19, 'Kamis', '7-8', '11:15:00.000000', '12:30:00.000000'),
+(20, 'Kamis', '9-10', '13:00:00.000000', '14:30:00.000000'),
+(21, 'Jumat', '1-2', '06:30:00.000000', '08:00:00.000000'),
+(22, 'Jumat', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(23, 'Jumat', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(24, 'Jumat', '7-8', '12:45:00.000000', '14:05:00.000000'),
+(25, 'Sabtu', '1-2', '06:30:00.000000', '08:30:00.000000'),
+(26, 'Sabtu', '3-4', '08:00:00.000000', '09:30:00.000000'),
+(27, 'Sabtu', '5-6', '09:45:00.000000', '11:15:00.000000'),
+(28, 'Sabtu', '7-8', '11:15:00.000000', '12:30:00.000000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelas_kelas`
+--
+
+CREATE TABLE IF NOT EXISTS `kelas_kelas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tahun_ajaran_id` int(11) NOT NULL,
+  `nama_kelas` varchar(30) NOT NULL,
+  `jurusan_id` int(11) NOT NULL,
+  `jumlah_kuota` int(10) unsigned NOT NULL,
+  `wali_kelas_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `kelas_kelas_2eaa9131` (`tahun_ajaran_id`),
+  KEY `kelas_kelas_ef5ed0ae` (`jurusan_id`),
+  KEY `kelas_kelas_5ae1bc54` (`wali_kelas_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `kelas_kelas`
+--
+
+INSERT INTO `kelas_kelas` (`id`, `tahun_ajaran_id`, `nama_kelas`, `jurusan_id`, `jumlah_kuota`, `wali_kelas_id`) VALUES
+(4, 1, 'X GB 1', 1, 30, 7),
+(5, 1, 'X GB 2', 1, 30, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelas_kelas_siswa`
+--
+
+CREATE TABLE IF NOT EXISTS `kelas_kelas_siswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kelas_id` int(11) NOT NULL,
+  `tahun_ajaran_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `siswa_id` (`siswa_id`,`tahun_ajaran_id`),
+  KEY `kelas_kelas_siswa_f2c1e698` (`kelas_id`),
+  KEY `kelas_kelas_siswa_2eaa9131` (`tahun_ajaran_id`),
+  KEY `kelas_kelas_siswa_245bda0a` (`siswa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+
+--
+-- Dumping data for table `kelas_kelas_siswa`
+--
+
+INSERT INTO `kelas_kelas_siswa` (`id`, `kelas_id`, `tahun_ajaran_id`, `siswa_id`) VALUES
+(45, 4, 1, 1),
+(46, 4, 1, 2),
+(47, 4, 1, 3),
+(48, 4, 1, 4),
+(49, 4, 1, 5),
+(50, 4, 1, 6),
+(57, 5, 1, 7),
+(58, 5, 1, 8),
+(59, 5, 1, 9),
+(60, 5, 1, 10),
+(61, 5, 1, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kepegawaian_guru`
+--
+
+CREATE TABLE IF NOT EXISTS `kepegawaian_guru` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `NIP` varchar(30) NOT NULL,
+  `nama_lengkap` varchar(50) NOT NULL,
+  `jenis_kelamin` varchar(1) NOT NULL,
+  `tempat_lahir` varchar(20) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `agama` varchar(10) NOT NULL,
+  `alamat` longtext NOT NULL,
+  `no_telpon` varchar(15) NOT NULL,
+  `no_rekening` varchar(30) NOT NULL,
+  `jabatan_id` int(11) DEFAULT NULL,
+  `pangkat_id` int(11) DEFAULT NULL,
+  `golongan` varchar(5) NOT NULL,
+  `NRG` varchar(30) NOT NULL,
+  `no_sertifikat` varchar(30) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `diperbarui` datetime(6) NOT NULL,
+  `user_login_id` int(11) DEFAULT NULL,
+  `hak_akses` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `NIP` (`NIP`),
+  UNIQUE KEY `user_login_id` (`user_login_id`),
+  KEY `kepegawaian_guru_9e2ba490` (`jabatan_id`),
+  KEY `kepegawaian_guru_318200ca` (`pangkat_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Dumping data for table `kepegawaian_guru`
+--
+
+INSERT INTO `kepegawaian_guru` (`id`, `NIP`, `nama_lengkap`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `agama`, `alamat`, `no_telpon`, `no_rekening`, `jabatan_id`, `pangkat_id`, `golongan`, `NRG`, `no_sertifikat`, `foto`, `tanggal_masuk`, `diperbarui`, `user_login_id`, `hak_akses`) VALUES
+(1, '196104041986031018', 'Drs.Djoko  Pratmodjo Yudhi Utomo.Mm', 'L', 'Tulungagung', '1961-04-04', 'Islam', 'Jl. Simo Sidomulyo VII / 7-A Surabaya\r\n', '0', '0017961659', 1, 1, 'IV/a', '', '', '', '2013-05-08', '2015-04-05 17:45:10.912000', 2, 'kepsek'),
+(2, '196004041985031019', 'Drs. Didik Sugiarto,Mm', 'L', 'Sidoarjo', '1960-04-04', 'Islam', 'Jl. Manukan Mulya Blok. 9-A / 05  Surabaya  \r\n', '7411355', '0012089023', 2, 2, 'IV/b', '073627053022', '140842002194', '', '2013-05-08', '2015-04-05 17:49:40.481000', 3, 'waka'),
+(3, '195910261984031009', 'Drs. Ir. Pudji  Santoso', 'L', 'Surabaya', '1959-10-26', 'Islam', 'Jl. Sidokare Indah AL -4 Sidoarjo  \r\n', '8929259', '0012678755', 3, 2, 'IV/b', '', '', '', '2013-05-08', '2015-04-05 17:52:01.073000', 4, 'staf'),
+(4, '196106201981031003', 'Drs. Aloysius   Mardjuki , St', 'L', 'Surabaya', '1961-06-20', 'Kristen', 'Pondok Maritim ZZ No.03 Surabaya\r\n', '7670501', '0012159919', 4, 3, 'IV/c', '075229053019', '140731811284', '', '2013-05-08', '2015-04-05 17:55:12.527000', 5, 'guru'),
+(5, '196106271986031009', 'Drs. Dwi Hari Santoso, M.Si', 'L', 'Sidoarjo', '1961-06-20', 'Islam', 'Jl. Jendral S. Parman  6-B / 14  Waru Sidoarjo\r\n', '8290374', '0012969384', 4, 2, 'IV/b', '085929053013', '140840002132', '', '2013-05-08', '2015-04-05 17:58:35.449000', 6, 'guru'),
+(6, '196111081986031015', 'Drs. Ya''Kup', 'L', 'Gresik', '2061-11-08', 'Islam', 'Jl. Klagen RT.05 / RW.04 Tropodo Krian Sidoarjo\r\n', '8973735', '0017961128', 4, 2, 'IV/b', '084034053030', '140841302183', '', '2013-05-08', '2015-04-05 18:02:58.340000', 7, 'guru'),
+(7, '131784220', 'Dra. Rusmarini', 'P', 'Surabaya', '1961-05-20', 'Islam', 'Jl. Bluru kidul RT.01 RW.13 Sidoarjo\r\n', '8967829', '0012156162', 4, 2, 'IV/b', '085228053035', '140831002099', '', '2013-05-08', '2015-04-05 18:05:54.715000', 8, 'guru'),
+(8, '196105081986031012', 'Drs. Mohammad Helmi Effendi', 'L', 'Surabaya', '1961-05-05', 'Islam', 'Jl. Sawentar Barat  I / 05 - B Surabaya\r\n', '7670501', '0012969759', 4, 2, 'IV/b', '084028053023', '140842002192', '', '2013-05-08', '2015-04-05 18:08:16.428000', 9, 'guru'),
+(9, '196405191989031009', 'Drs. Soelaksono , M.Mpd', 'L', 'Surabaya', '1964-05-09', 'Islam', 'Jl. Banyu Urip Lor  III-C / 05 Surabaya\r\n', '5320193', '0017073273', 4, 2, 'IV/b', '085128056022', '1408322123443', '', '2013-05-08', '2015-04-05 18:20:39.552000', 10, 'guru'),
+(10, '195906071986022002', 'Dra. Triyani Sulistyaningsih', 'P', 'Blitar', '1959-06-07', 'Islam', 'Jl. Kedurus IV Gg. Delima No.04, Surabaya\r\n', '8290374', '0012007418', 4, 2, 'IV/b', '083929046009', '1408322020229', '', '2013-05-08', '2015-04-06 14:43:05.690000', 11, 'guru'),
+(11, '196210201986031016', 'Drs. Sudjianto', 'L', 'Surabaya', '1962-10-20', 'Islam', 'Griya Surya Asri B - 6 / 14 Candi, Sidoarjo \r\n', '8924571', '0012082614', 4, 2, 'IV/b', '085233054039', '140842002199', '', '2013-05-08', '2015-04-06 15:00:55.436000', 12, 'guru'),
+(12, '19216823456', 'Nur Komaria', 'P', 'Surabaya', '1994-01-04', 'Islam', 'Jl. Kandangan Mulya No. 33 A Surabaya', '-', '912668876', 3, 3, 'IV/b', '', '', 'foto/guru/19216823456.JPG', '2015-04-25', '2015-04-25 07:17:35.027000', 24, 'staf'),
+(13, '195907201986031016', 'Drs. Sutrisno', 'L', 'Kediri', '1959-07-20', 'Islam', 'Jl. Bratang Wetan I B No. 3 Surabaya', '-', '0012941846', 4, 3, 'IV/c', '075230051014', '140741605149', '', '2015-04-26', '2015-04-26 05:44:09.038000', 25, 'guru'),
+(14, '196104191989031005', 'Drs. Wisnu Pradata', 'L', 'Mojokerto', '1961-04-19', 'Islam', 'Jl. Simowau Indah Blok.C  - 03  Sepanjang  Sidoarjo\r\n', '7873009', '0017206401', 4, 3, 'IV/c', '085127053023', '140853202165', '', '2015-04-26', '2015-04-26 05:53:57.093000', 26, 'guru');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kesiswaan_ortu`
+--
+
+CREATE TABLE IF NOT EXISTS `kesiswaan_ortu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `siswa_id` int(11) NOT NULL,
+  `nama_ayah` varchar(100) NOT NULL,
+  `nama_ibu` varchar(100) NOT NULL,
+  `alamat_ortu` varchar(100) NOT NULL,
+  `no_telpon` varchar(15) NOT NULL,
+  `pendidikan_ayah` varchar(30) NOT NULL,
+  `pekerjaan_ayah` varchar(100) NOT NULL,
+  `penghasilan_ayah` int(10) unsigned NOT NULL,
+  `pendidikan_ibu` varchar(30) NOT NULL,
+  `pekerjaan_ibu` varchar(100) NOT NULL,
+  `penghasilan_ibu` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `siswa_id` (`siswa_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `kesiswaan_ortu`
+--
+
+INSERT INTO `kesiswaan_ortu` (`id`, `siswa_id`, `nama_ayah`, `nama_ibu`, `alamat_ortu`, `no_telpon`, `pendidikan_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `pendidikan_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`) VALUES
+(1, 1, 'Supardi', 'Sifa', 'JL. Kedondong Kidul III No 27 B, Surabaya\r\n', '8973735', 'SD', 'Pedagang Es Balok', 2000000, 'SD', 'Pedagang', 1000000),
+(2, 2, 'Didik Suhari', 'Nur Sriatiningsih', 'JL. Pancawarna 82. No.04 KBD Gresik', '8290374', 'SD', 'Swasta', 2000000, 'SD', '', 0),
+(3, 3, 'Mawardi Suli', 'Suhartini', 'Jl. Halimun No. 56 Surabaya', '8973735', 'SD', 'Swasta', 150000, 'SD', '', 0),
+(4, 4, 'Suwito', 'Djuwani', 'Jl. Simo Pomahan Baru Barat Raya No. 31C Surabaya', '8967829', 'SMA', 'Swasta', 1700000, 'SMA', '', 0),
+(5, 5, 'Totok Budi Artono', 'Rus Yanti', 'Pondok Benowo Indoh Blok FG No. 30 Surabaya', '8290374', 'SMA', 'Sopir', 2000000, 'SMP', '', 0),
+(6, 6, 'Moch. Ichsan', 'Setyoningsih', 'Jl. Kendung Jaya X/5 Surabaya', '8973735', 'SMP', 'Pedagang', 2000000, 'SMA', '', 0),
+(7, 7, 'Sutarman', 'Muas Kufah', 'Jl. Kembang Kuning Kramat II No. 30E Surabaya', '8967829', 'SMA', 'Pedagang', 2500000, 'SMA', '', 0),
+(8, 8, 'Sugeng Wiono', 'Sutriami', 'Jl. Sememi Jaya Baru Gg. VII No. 45 Surabaya', '8973735', 'SD', 'Pedagang', 1500000, 'SMA', '', 0),
+(9, 9, 'Senanti Rahardjo', 'Laila Hidajati Anwary', 'Jl Sawahan Baru I/19 Surabaya', '7670501', 'SMA', 'Swasta', 2500000, 'SMA', 'Pedagang', 1500000),
+(10, 10, 'Zaini', 'Eko Siswati', 'Jl. Kandangan Mulya I No. 33 A, Surabaya', '-', 'SD', 'Swasta', 2000000, 'SMA', '', 0),
+(11, 11, 'Moch. Husni', 'Nurul Lailatul Latiffah', 'JL. RAYA MENGANTI JERUK NO. 104 SURABAYA\r\n', '-', 'SD', 'Pedagang Meubel', 3000000, 'SMP', '', 0),
+(12, 12, 'Ngadiman', 'Djuhari Ini', 'Jl. Simo Kwageang Gang Buntu Lor No. 43 Surabaya', '-', 'SMP', 'Swasta', 1500000, 'SD', 'Swasta', 1300000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kesiswaan_siswa`
+--
+
+CREATE TABLE IF NOT EXISTS `kesiswaan_siswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `NIS` varchar(30) NOT NULL,
+  `NISN` varchar(30) NOT NULL,
+  `no_ijazah` varchar(30) NOT NULL,
+  `no_skhun` varchar(30) NOT NULL,
+  `nilai_un` varchar(30) NOT NULL,
+  `sekolah_asal` varchar(30) NOT NULL,
+  `jurusan_id` int(11) DEFAULT NULL,
+  `nama_lengkap` varchar(100) NOT NULL,
+  `jenis_kelamin` varchar(1) NOT NULL,
+  `tempat_lahir` varchar(20) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `agama` varchar(10) NOT NULL,
+  `tinggi` int(10) unsigned NOT NULL,
+  `berat` int(10) unsigned NOT NULL,
+  `alamat` varchar(100) NOT NULL,
+  `no_telpon` varchar(15) NOT NULL,
+  `tinggal_dengan` varchar(30) NOT NULL,
+  `jumlah_saudara` int(10) unsigned NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `keterangan` longtext NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `tanggal_lulus` date DEFAULT NULL,
+  `diperbarui` datetime(6) NOT NULL,
+  `user_login_id` int(11) DEFAULT NULL,
+  `hak_akses` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `NIS` (`NIS`),
+  UNIQUE KEY `NISN` (`NISN`),
+  UNIQUE KEY `no_ijazah` (`no_ijazah`),
+  UNIQUE KEY `no_skhun` (`no_skhun`),
+  UNIQUE KEY `user_login_id` (`user_login_id`),
+  KEY `kesiswaan_siswa_ef5ed0ae` (`jurusan_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `kesiswaan_siswa`
+--
+
+INSERT INTO `kesiswaan_siswa` (`id`, `NIS`, `NISN`, `no_ijazah`, `no_skhun`, `nilai_un`, `sekolah_asal`, `jurusan_id`, `nama_lengkap`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `agama`, `tinggi`, `berat`, `alamat`, `no_telpon`, `tinggal_dengan`, `jumlah_saudara`, `foto`, `keterangan`, `tanggal_masuk`, `tanggal_lulus`, `diperbarui`, `user_login_id`, `hak_akses`) VALUES
+(1, '23196', '9970295828', 'DN-05 DI 0121692', 'DN-05 DI 1190091', '37,55', 'SMP A. Wahid Hasyim Tebuireng ', 1, 'Abdul Aziz', 'L', 'Surabaya', '1997-06-23', 'Islam', 0, 0, 'JL. Kedondong Kidul III No 27 B, Surabaya\r\n', '8973735', 'Orang Tua', 2, '', '', '2014-07-10', NULL, '2015-04-25 06:32:28.716000', 13, 'siswa'),
+(2, '23198', '9980902102', ' MTs 130000489', 'DN-05 DI 0293411', '32,9', 'MTS Negeri 2 Surabaya', 1, 'Ageng Budi Firmansyah', 'L', 'Surabaya', '1998-10-01', 'Islam', 0, 0, 'JL. Pancawarna 82. No.04 KBD Gresik\r\n', '8290374', 'Orang Tua', 2, '', '', '2014-07-10', NULL, '2015-04-07 08:12:18.480000', 14, 'siswa'),
+(3, '23199', '9973731668', 'DN-05 DI 0001204', 'DN-05 DI 1048850', '32,95', 'SMP Tasbaya', 1, 'Agus Priyanto', 'L', 'Surabaya', '1997-08-16', 'Islam', 0, 0, 'Jl. Halimun No. 56 Surabaya', '8973735', 'Orang Tua', 1, '', '', '2014-07-10', NULL, '2015-04-07 08:19:24.356000', 15, 'siswa'),
+(4, '23201', '9980255879', 'DN-05 DI 0017768', 'DN-05 DI 1064305', '31,45', 'SMP Kawung', 1, 'Aji Purnomo', 'L', 'Surabaya', '1998-04-12', 'Islam', 0, 0, 'Jl. Simo Pomahan Baru Barat Raya No. 31C Surabaya', '8967829', 'Orang Tua', 1, '', '', '2014-07-10', NULL, '2015-04-07 08:22:40.683000', 16, 'siswa'),
+(5, '23202', '9980271065', 'DN-05 DI 0017766', 'DN-05 DI 1050758', '33,55', 'SMP Negeri 26 Surabaya', 1, 'Alfian Rizky Agung Nugroho', 'L', 'Grobogan', '1998-05-27', 'Islam', 0, 0, 'Pondok Benowo Indoh Blok FG No. 30 Surabaya', '8290374', 'Orang Tua', 0, '', '', '2014-07-10', NULL, '2015-04-07 08:28:19.176000', 17, 'siswa'),
+(6, '23220', '9960317741', 'DN-05 DI 0006366', 'DN-05 DI 1052819', '31,2', 'SMP Negeri 10 Surabaya', 1, 'Diajeng Ragil Dyah Enggar Nentyas Santya Putri', 'P', 'Surabaya', '1996-10-21', 'Islam', 0, 0, 'Jl. Kendung Jaya X/5 Surabaya', '8973735', 'Orang Tua', 1, '', 'Cuti Sekolah selama 1 Tahun', '2014-07-10', NULL, '2015-04-07 10:01:03.363000', 18, 'siswa'),
+(7, '23221', '9983817167', 'DN-05 DI 0022910', 'DN-05 DI 1069411', '30,00', 'SMP Negeri 33 Surabaya', 1, 'Dicki Wahyu Andriawan Putra', 'L', 'Surabaya', '1998-04-28', 'Islam', 0, 0, 'Jl. Kembang Kuning Kramat II No. 30E Surabaya', '8967829', 'Orang Tua', 3, '', '', '2014-07-10', NULL, '2015-04-07 08:35:59.879000', 19, 'siswa'),
+(8, '23225', '9983595820', 'DN-05 DI 0023811', 'DN-05 DI 1069886', '36,2', 'SMP Wachid Hasyim 7', 1, 'Dikky Permadani', 'L', 'Malang', '1998-06-26', 'Islam', 0, 0, 'Jl. Sememi Jaya Baru Gg. VII No. 45 Surabaya', '8973735', 'Orang Tua', 0, '', '', '2014-07-10', NULL, '2015-04-07 08:42:47.218000', 20, 'siswa'),
+(9, '23297', '9980290185', 'DN-05 DI 0002702', 'DN-05 DI 1049190', '30,45', 'SMP Negeri 4 Surabaya', 1, 'Titis Dyah Lasanti', 'P', 'Surabaya', '1998-04-24', 'Islam', 0, 0, 'Jl Sawahan Baru I/19 Surabaya', '7670501', 'Orang Tua', 2, '', '', '2014-07-10', NULL, '2015-04-07 08:48:13.360000', 21, 'siswa'),
+(10, '23298', '9970295829', 'DN-05 DI 0121693', 'DN-05 DI 1190092', '39,75', 'SMP Negeri 26 Surabaya', 1, 'Zaenal Siswanto Aribowo', 'L', 'Surabaya', '1997-01-19', 'Islam', 160, 54, 'Jl. Kandangan Mulya I No. 33 A, Surabaya', '-', 'Orang Tua', 1, 'foto/siswa/23298.jpg', '', '2014-07-10', NULL, '2015-04-26 06:00:34.222000', 22, 'siswa'),
+(11, '23203', '9983938897', 'DN-05 DI 0019564', 'DN-05 DI 1066016', '32,75', 'SMP NEGERI 28 SURABAYA', 1, 'Alfin Hidayat', 'L', 'Surabaya', '1998-01-17', 'Islam', 0, 0, 'JL. RAYA MENGANTI JERUK NO. 104 SURABAYA\r\n', '-', 'Orang Tua', 0, '', '', '2015-04-25', NULL, '2015-04-25 06:41:36.098000', 23, 'siswa'),
+(12, '23197', '9983774910', 'DN-05 DI 0018059', 'DN-05 DI 1064071', '32,2', 'SMP TRI KARYA SURABAYA', 1, 'Adinda Putri Khairani', 'P', 'Surabaya', '1997-07-29', 'Islam', 146, 39, 'Jl. Simo Kwageang Gang Buntu Lor No. 43 Surabaya', '-', 'Orang Tua', 4, '', '', '2014-07-10', NULL, '2015-04-26 06:05:59.977000', 27, 'siswa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mapel_kompetensikejuruan`
+--
+
+CREATE TABLE IF NOT EXISTS `mapel_kompetensikejuruan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mapel_induk_id` int(11) NOT NULL,
+  `nama_kompetensi` varchar(255) NOT NULL,
+  `jurusan_id` int(11) DEFAULT NULL,
+  `jumlah_jam` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mapel_kompetensikejuruan_df19ad03` (`mapel_induk_id`),
+  KEY `mapel_kompetensikejuruan_ef5ed0ae` (`jurusan_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mapel_mapel`
+--
+
+CREATE TABLE IF NOT EXISTS `mapel_mapel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_mapel` varchar(50) NOT NULL,
+  `type_mapel` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+
+--
+-- Dumping data for table `mapel_mapel`
+--
+
+INSERT INTO `mapel_mapel` (`id`, `nama_mapel`, `type_mapel`) VALUES
+(1, 'Pendidikan Agama', 'Normatif'),
+(2, 'Pendidikan Kewarganegaraan', 'Normatif'),
+(3, 'Fisika', 'Adaptif'),
+(4, 'Matematika', 'Adaptif'),
+(5, 'Bahasa Indonesia', 'Adaptif'),
+(6, 'Penjaskesor', 'Adaptif'),
+(7, 'Bahasa Inggris', 'Adaptif'),
+(10, 'Kimia', 'Adaptif'),
+(11, 'Ilmu Pengetahuan Alam', 'Adaptif'),
+(12, 'Ilmu Pengetahuan Sosial', 'Adaptif'),
+(13, 'Ketrampilan Komputer Dan Pengelolaan Informasi', 'Adaptif'),
+(14, 'Kewirausahaan', 'Adaptif'),
+(15, 'Seni Budaya', 'Normatif'),
+(16, 'Teori Kejuruan Rekayasa Perangkat Lunak', 'Produktif'),
+(17, 'Praktek Rekayasa Perangkat Lunak', 'Produktif'),
+(18, 'Teori Kejuruan Gambar Bangunan', 'Produktif'),
+(19, 'Praktek Gambar Bangunan', 'Produktif'),
+(20, 'Teori Kejuruan Animasi', 'Produktif'),
+(21, 'Praktek Animasi', 'Produktif'),
+(22, 'Teori Kejuruan Konstruksi Kayu', 'Produktif'),
+(23, 'Teori Kejuruan Teknik Kendaraan Ringan', 'Produktif'),
+(24, 'Teori Kejuruan Audio Video', 'Produktif'),
+(25, 'Teori Kejuruan Teknik Komputer Jaringan', 'Produktif'),
+(26, 'Teori Kejuruan Teknik Permesinan', 'Produktif'),
+(27, 'Teori Kejuruan Instalasi Tenaga Listrik', 'Produktif'),
+(28, 'Praktek Instalasi Tenaga Listrik', 'Produktif'),
+(29, 'Praktek Teknik Permesinan', 'Produktif'),
+(30, 'Praktek Teknik Komputer Jaringan', 'Produktif'),
+(31, 'Praktek Animasiaudio Video', 'Produktif'),
+(32, 'Praktek Teknik Kendaraan Ringan', 'Produktif'),
+(33, 'Praktek Konstruksi Kayu', 'Produktif');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mapel_mapeldiampu`
+--
+
+CREATE TABLE IF NOT EXISTS `mapel_mapeldiampu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mapel_id` int(11) NOT NULL,
+  `pengajar_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mapel_mapeldiampu_f8dc7222` (`mapel_id`),
+  KEY `mapel_mapeldiampu_4338988e` (`pengajar_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data for table `mapel_mapeldiampu`
+--
+
+INSERT INTO `mapel_mapeldiampu` (`id`, `mapel_id`, `pengajar_id`) VALUES
+(1, 1, 6),
+(2, 1, 8),
+(3, 2, 7),
+(4, 2, 8),
+(5, 3, 4),
+(6, 3, 10),
+(7, 4, 4),
+(8, 4, 9),
+(9, 5, 5),
+(10, 5, 11),
+(11, 6, 9),
+(12, 6, 11),
+(13, 7, 10),
+(15, 7, 6);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `absensi_absensiguru`
+--
+ALTER TABLE `absensi_absensiguru`
+  ADD CONSTRAINT `guru_id_refs_id_2656c271` FOREIGN KEY (`guru_id`) REFERENCES `kepegawaian_guru` (`id`),
+  ADD CONSTRAINT `jam_ke_id_refs_id_1b64a5f8` FOREIGN KEY (`jam_ke_id`) REFERENCES `jadwal_waktu` (`id`);
+
+--
+-- Constraints for table `absensi_absensisiswa`
+--
+ALTER TABLE `absensi_absensisiswa`
+  ADD CONSTRAINT `kelas_id_refs_id_4f1723ed` FOREIGN KEY (`kelas_id`) REFERENCES `kelas_kelas` (`id`),
+  ADD CONSTRAINT `siswa_id_refs_id_5c7e9754` FOREIGN KEY (`siswa_id`) REFERENCES `kesiswaan_siswa` (`id`);
+
+--
+-- Constraints for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD CONSTRAINT `group_id_refs_id_f4b32aac` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `permission_id_refs_id_6ba0f519` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
+
+--
+-- Constraints for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD CONSTRAINT `content_type_id_refs_id_d043b34a` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+
+--
+-- Constraints for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `jadwal_jadwal`
+--
+ALTER TABLE `jadwal_jadwal`
+  ADD CONSTRAINT `kelas_id_refs_id_7f31ab20` FOREIGN KEY (`kelas_id`) REFERENCES `kelas_kelas` (`id`),
+  ADD CONSTRAINT `mapel_id_refs_id_e27337e8` FOREIGN KEY (`mapel_id`) REFERENCES `mapel_mapeldiampu` (`id`),
+  ADD CONSTRAINT `tahun_ajaran_id_refs_id_deaf5173` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `data_master_thnajaran` (`id`),
+  ADD CONSTRAINT `waktu_id_refs_id_3603e634` FOREIGN KEY (`waktu_id`) REFERENCES `jadwal_waktu` (`id`);
+
+--
+-- Constraints for table `kelas_kelas`
+--
+ALTER TABLE `kelas_kelas`
+  ADD CONSTRAINT `jurusan_id_refs_id_0f4e8ea9` FOREIGN KEY (`jurusan_id`) REFERENCES `data_master_jurusan` (`id`),
+  ADD CONSTRAINT `tahun_ajaran_id_refs_id_d572ef26` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `data_master_thnajaran` (`id`),
+  ADD CONSTRAINT `wali_kelas_id_refs_id_f991290e` FOREIGN KEY (`wali_kelas_id`) REFERENCES `kepegawaian_guru` (`id`);
+
+--
+-- Constraints for table `kelas_kelas_siswa`
+--
+ALTER TABLE `kelas_kelas_siswa`
+  ADD CONSTRAINT `kelas_id_refs_id_09716d0e` FOREIGN KEY (`kelas_id`) REFERENCES `kelas_kelas` (`id`),
+  ADD CONSTRAINT `siswa_id_refs_id_1991ece8` FOREIGN KEY (`siswa_id`) REFERENCES `kesiswaan_siswa` (`id`),
+  ADD CONSTRAINT `tahun_ajaran_id_refs_id_a535da9d` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `data_master_thnajaran` (`id`);
+
+--
+-- Constraints for table `kepegawaian_guru`
+--
+ALTER TABLE `kepegawaian_guru`
+  ADD CONSTRAINT `jabatan_id_refs_id_f73dd665` FOREIGN KEY (`jabatan_id`) REFERENCES `data_master_jabatan` (`id`),
+  ADD CONSTRAINT `pangkat_id_refs_id_a56ba300` FOREIGN KEY (`pangkat_id`) REFERENCES `data_master_pangkat` (`id`),
+  ADD CONSTRAINT `user_login_id_refs_id_434e5429` FOREIGN KEY (`user_login_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `kesiswaan_ortu`
+--
+ALTER TABLE `kesiswaan_ortu`
+  ADD CONSTRAINT `siswa_id_refs_id_e509abef` FOREIGN KEY (`siswa_id`) REFERENCES `kesiswaan_siswa` (`id`);
+
+--
+-- Constraints for table `kesiswaan_siswa`
+--
+ALTER TABLE `kesiswaan_siswa`
+  ADD CONSTRAINT `jurusan_id_refs_id_69b8eb1f` FOREIGN KEY (`jurusan_id`) REFERENCES `data_master_jurusan` (`id`),
+  ADD CONSTRAINT `user_login_id_refs_id_1ec8b4e5` FOREIGN KEY (`user_login_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `mapel_kompetensikejuruan`
+--
+ALTER TABLE `mapel_kompetensikejuruan`
+  ADD CONSTRAINT `jurusan_id_refs_id_ca4e7c4e` FOREIGN KEY (`jurusan_id`) REFERENCES `data_master_jurusan` (`id`),
+  ADD CONSTRAINT `mapel_induk_id_refs_id_a8ac01be` FOREIGN KEY (`mapel_induk_id`) REFERENCES `mapel_mapel` (`id`);
+
+--
+-- Constraints for table `mapel_mapeldiampu`
+--
+ALTER TABLE `mapel_mapeldiampu`
+  ADD CONSTRAINT `mapel_id_refs_id_12240d08` FOREIGN KEY (`mapel_id`) REFERENCES `mapel_mapel` (`id`),
+  ADD CONSTRAINT `pengajar_id_refs_id_60958537` FOREIGN KEY (`pengajar_id`) REFERENCES `kepegawaian_guru` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

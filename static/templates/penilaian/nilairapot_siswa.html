@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>NIS</th>
+								<th>Nama</th>
+								<th>Tugas</th>
+								<th>Quiz</th>
+								<th>UTS</th>
+								<th>UAS</th>
+								<th>Total</th>
+								
+								<th></th>
+							
+							</tr>
+						</thead>
+						<tbody>
+						{% for nilai in datanya %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td>{{ nilai.siswa.NIS }}</td>
+							<td>{{ nilai.siswa.nama_lengkap }}</td>
+							<td>{{ nilai.tugas }}</td>
+							<td>{{ nilai.quiz }}</td>
+							<td>{{ nilai.uts }}</td>
+							<td>{{ nilai.uas }}</td>
+							<td>{{ nilai.total }}</td>
+							<td>
+							{% if nilai.periode.aktif or not kompetensi.periode %}
+								<div class="tooltip-demo" align="right">
+									<a href="{{nilai.id}}" class="btn btn-info btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Entri nilai" onclick="return showAddAnotherPopup(this)" id="entry_nilai"><i class="icon-pencil"></i></a>
+								</div>
+							{%endif%}
+							</td>
+							
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-stripped" id="dataTables-example5">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>NIS</th>
+								<th>Nama</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for siswa in datanya %}
+							<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{siswa.NIS}}</td>
+								<td>{{siswa.nama_lengkap}}</td>
+								<td>aaa
+								<div class="tooltip-demo" align="right">
+									{% if page == "rekap_komp" %}
+									<a href="/penilaian/kompetensi/siswa/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Kompetensi Siswa"><i class="icon-list"></i></a>
+									{% elif page == "rekap_un" %}
+									<a href="/penilaian/un/siswa/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Nilai UN Siswa"><i class="icon-list"></i></a>
+									{% elif page == "rekap_us" %}
+									<a href="/penilaian/us/siswa/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" data-toggle="tooltip" data-placement="top" title="Nilai US Siswa"><i class="icon-list"></i></a>
+									{% endif %}
+								</div>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			<div>
+		</div>
+	</div>
+</div>
+{% endblock %}

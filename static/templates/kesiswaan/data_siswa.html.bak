@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<b>{{ message }}</b>
+				</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-group"></i></div>
+				<h5>{{ heading }}</h5>
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+				<div class="toolbar tooltip-demo">
+					<a href="tambah"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Tambah data"><i class="icon-plus"> Tambah Data</i></a>
+				</div>
+				{% endif %}
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<div class="col-sm-3">
+						<form method="get">
+							<table border="0">
+							<tr><td>
+							<input type="text" placeholder="Cari siswa" class="form-control" name="q"/ autofocus>
+							</td><td>
+							<button class="btn btn-default btn-round"><i class="icon-search"></i></button>
+							</div>
+							</td></tr>
+							</table>
+						</form>
+					</div>
+					<!--div class="col-sm-3" style="float: right">
+						<form method="post">{% csrf_token %}
+							<table border="0">
+							<tr><td>
+							<select class="form-control" id="thn_ajaran" name="thn_ajaran" data-placement="left">
+								<option value="0" selected="selected">Pilih Tahun Ajaran</option>
+							{% for thn in thnajaran %}
+								<option value="{{ thn.id }}">{{ thn.tahun_ajaran }}</option>
+							{% endfor %}
+							</select> 
+							</td><td>
+							<button class="btn btn-warning btn-sm"><i class=" icon-arrow-right"></i></button>
+							</div>
+							</td></tr>
+							</table>
+						</form>
+					</div><br><br-->
+					<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th width="5%">NIS</th>
+							<th width="12%">Nama</th>
+							<th width="11%">Jenis Kelamin</th>
+							<th width="11%">Jurusan</th>
+							<th>Tanggal Lahir</th>
+							<th width="11%">Alamat</th>
+							<th width="11%">Angkatan</th>
+							<th width="11%">Foto</th>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<td width="10%"></td>
+							{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for siswa in siswanya %}
+						<tr class="odd gradeX">
+							<td>{{ siswa.NIS }}</td>
+							<td><a href="/kesiswaan/siswa/detil/{{siswa.id}}">{{ siswa.nama_lengkap }}</a></td>
+							<td width="10%">{{siswa.gender}}</td>
+							<td>{{ siswa.jurusan }}</td>
+							<td>{{ siswa.tempat_lahir }}, {{ siswa.tanggal_lahir|date:"d M Y" }}</td>
+							<td>{{siswa.alamat}}</td>
+							<td>{{ siswa.tanggal_masuk|date:"Y" }}</td>
+							{% if not siswa.foto %}
+								<!--td class="center"><img src="/static/img/account_and_control.png" width="70" height="70" border="0" alt="{{ siswa.foto }}"></td-->
+							{% else %}
+								<td class="center"><img src="/media/{{ siswa.foto }}" width="70" height="70" border="0" alt="{{ siswa.foto }}"></td>
+							{% endif %}
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<td width="10%">
+								<table><tr><td>
+								<div class="tooltip-demo" align="right">
+									<a href="{{linkubah}}{{ siswa.id }}"  type="button" class="btn btn-warning btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="left" title="Ubah data"><i class="icon-edit"></i></a></td><td>
+									<a href="{{linkhapus}}{{ siswa.id }}" type="button" class="btn btn-danger btn-sm btn-line btn-round" align="right" onclick="return confirm('Semua data yang berhubungan dengan data yang dipilih juga akan dihapus. Apakah anda yakin menghapus data? ')" data-toggle="tooltip" data-placement="top" title="Hapus data"><i class="icon-trash"></i></a>
+								</div>
+								</td></tr></table>
+							</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+						<div class="halaman" align="right">
+							{% if siswanya.has_previous %}
+								<a href="?q={{request.GET.q}}&hal={{ siswanya.previous_page_number }}" class="btn btn-default btn-xs">Sebelumnya</a>
+							{% else %}
+								<button class="btn btn-default btn-xs" disabled>Sebelumnya</button>
+							{% endif %}
+							{% for hal in siswanya.paginator.page_range %}
+								
+								{% if forloop.counter != siswanya.number %}
+									<a href="?q={{request.GET.q}}&hal={{ forloop.counter }}" class="btn btn-default btn-xs">{{ forloop.counter }}</a>
+								{% else %}
+									<a href="?q={{request.GET.q}}&hal={{ forloop.counter }}" class="btn btn-info btn-xs" disabled>{{ forloop.counter }}</a>
+								{% endif %}
+							{%endfor%}
+							{% if siswanya.has_next %}
+								<a href="?q={{request.GET.q}}&hal={{ siswanya.next_page_number }}" class="btn btn-default btn-xs">Berikutnya</a>
+							{% else %}
+								<button class="btn btn-default btn-xs" disabled>Berikutnya</button>
+							{% endif %}
+							Total data {{total_data}}
+						</div><br>
+						
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+<script src="/static/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#dataTables-example').dataTable();
+	});
+</script>

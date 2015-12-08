@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if form.non_field_errors %}
+		<div class="alert alert-danger alert-dismissable" align="center">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<b>{{ form.non_field_errors.as_text|slice:"1:"}}</b>
+		</div>
+		{%endif%}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+				<h5>{{ heading }}</h5>
+			</header>
+			<div class="body">
+				<div class="row ">
+				<div class="col-sm-5">
+					<form method="post" action="">{% csrf_token %}
+						<div class="form-group">
+							{% for field in form %}
+								{% if field.html_name == "dari_jam" or field.html_name == "sampai_jam" %}
+									{{ field.label_tag }}
+									<div class="input-group bootstrap-timepicker">
+										{{ field.errors }}{{ field }}
+										<span class="input-group-addon add-on"><i class="icon-time"></i></span>
+									</div>
+								{% else %}
+								{{ field.label_tag }}{{ field.errors }}{{ field }}
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="form-group" align="right">
+							<button type="button" class="btn btn-default btn-round" onClick="{{linkback}}"><i class=" icon-undo"> Batal</i></button>
+							<button type="submit" class="btn btn-primary btn-round"><i class="icon-save"> Simpan</i></button>
+						</div>
+					</form>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

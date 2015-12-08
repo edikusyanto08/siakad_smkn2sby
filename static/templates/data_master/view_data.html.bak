@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true" id="add-regular">&times;</button>
+					<b>{{ message }}</b>
+				</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-briefcase"></i></div>
+					<h5>{{ heading }}</h5>
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+				<div class="toolbar tooltip-demo">
+					<a href="tambah"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Tambah data"><i class="icon-plus"> Tambah Data</i></a>
+				</div>
+				{% endif %}
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered" id="dataTables-example">
+						<thead>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</thead>
+						<tbody>
+						{% for data in datanya %}
+						<tr>
+							<td width=1%><b>{{ forloop.counter }}</b></td>
+							<td><b>{{ data }}</b></td>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<td width=15%>
+							<div class="tooltip-demo" align="right">
+								<a href="{{ linkubah }}{{ data.id }}"  type="button" class="btn btn-warning btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="left" title="Ubah data"><i class="icon-edit"></i></a>
+								<a href="{{ linkhapus }}{{ data.id }}" type="button" class="btn btn-danger btn-sm btn-line btn-round" align="right" onclick="return confirm('Semua data yang berhubungan dengan data yang dipilih juga akan dihapus. Apakah anda yakin menghapus data? ')" data-toggle="tooltip" data-placement="top" title="Hapus data"><i class="icon-trash"></i></a>
+							</div>
+							</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+			</header>
+			<div class="body"><table border="0"><tr><td>
+			<h4><font size="" color="#ff9900">Pengampu : {% for guru in pengampu %}{{guru.nama_lengkap}}{% endfor %}</font></h4></td><td>&nbsp;&nbsp;<button class="btn btn-default" onclick="self.history.back()"><i class="icon-undo"></i>&nbsp;Kembali</button></td></tr></table>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#sikap" data-toggle="tab">Nilai Sikap</a></li>
+					<li><a href="#keterampilan" data-toggle="tab">Nilai Keterampilan</a></li>
+					<li><a href="#kognitif" data-toggle="tab">Nilai Kognitif (Pengetahuan)</a></li>
+					<li><a href="#total" data-toggle="tab">Nilai Total (Keseluruhan)</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="sikap">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>NIS</th>
+										<th>Nama</th>
+										<th>Observasi</th>
+										<th>Penilaian Diri</th>
+										<th>Penilaian Sejawat</th>
+										<th>Jurnal</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for siswa in nilaisikap %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ siswa.siswa.NIS }}</td>
+									<td>{{ siswa.siswa.nama_lengkap }}</td>
+									<td>{{ siswa.observasi }}</td>
+									<td>{{ siswa.penilaian_diri }}</td>
+									<td>{{ siswa.penilaian_sejawat }}</td>
+									<td>{{ siswa.jurnal }}</td>
+									<td>{{ siswa.rerata }}</td>
+									<td>{{ siswa.konversi }}</td>
+									<td>{{ siswa.predikat }}</td>
+									<td> {%if siswa.periode.aktif and not siswa.periode.verifikasi and request.session.id_user == siswa.pengajar.id %}
+										<div class="tooltip-demo" align="right">
+											<a href="/penilaian/rekap/sikap/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" onclick="return showAddAnotherPopup(this)" data-toggle="tooltip" data-placement="top" title="Ubah Nilai"><i class="icon-edit"></i></a>
+										</div>
+										{% endif %}
+									</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="keterampilan">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example3">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>NIS</th>
+										<th>Nama</th>
+										<th>Praktik</th>
+										<th>Poject</th>
+										<th>Portofolio</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for siswa in nilaiketerampilan %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ siswa.siswa.NIS }}</td>
+									<td>{{ siswa.siswa.nama_lengkap }}</td>
+									<td>{{ siswa.praktik }}</td>
+									<td>{{ siswa.project }}</td>
+									<td>{{ siswa.portofolio }}</td>
+									<td>{{ siswa.rerata }}</td>
+									<td>{{ siswa.konversi }}</td>
+									<td>{{ siswa.predikat }}</td>
+									<td> {%if siswa.periode.aktif and not siswa.periode.verifikasi and request.session.id_user == siswa.pengajar.id %}
+										<div class="tooltip-demo" align="right">
+											<a href="/penilaian/rekap/keterampilan/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" onclick="return showAddAnotherPopup(this)" data-toggle="tooltip" data-placement="top" title="Ubah Nilai"><i class="icon-edit"></i></a>
+										</div>
+										{% endif %}
+									</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="kognitif">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example2">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>NIS</th>
+										<th>Nama</th>
+										<th>Tugas</th>
+										<th>Ulangan</th>
+										<th>UTS</th>
+										<th>UAS</th>
+										<th>Rata-rata</th>
+										<th>Konversi</th>
+										<th>Predikat</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for siswa in nilaikognitif %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ siswa.siswa.NIS }}</td>
+									<td>{{ siswa.siswa.nama_lengkap }}</td>
+									<td>{{ siswa.tugas }}</td>
+									<td>{{ siswa.uh }}</td>
+									<td>{{ siswa.uts }}</td>
+									<td>{{ siswa.uas }}</td>
+									<td>{{ siswa.rerata }}</td>
+									<td>{{ siswa.konversi }}</td>
+									<td>{{ siswa.predikat }}</td>
+									<td> {%if siswa.periode.aktif and not siswa.periode.verifikasi and request.session.id_user == siswa.pengajar.id %}
+										<div class="tooltip-demo" align="right">
+											<a href="/penilaian/rekap/kognitif/{{ siswa.id }}" id="rekap_sikap" type="button" class="btn btn-info btn-line btn-round" align="right" onclick="return showAddAnotherPopup(this)" data-toggle="tooltip" data-placement="top" title="Ubah Nilai"><i class="icon-edit"></i></a>
+										</div>
+										{% endif %}
+									</td>
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="total">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" id="dataTables-example4">
+								<thead>
+									<tr>
+										<th rowspan="2">No</th>
+										<th rowspan="2">NIS</th>
+										<th rowspan="2">Nama</th>
+										<th colspan="3" align="center" width="15%">Nilai Sikap</th>
+										<th colspan="3" align="center" width="15%">Nilai Keterampilan</th>
+										<th colspan="3" align="center" width="15%">Nilai Kognitif</th>
+										<th rowspan="2">Rata-rata</th>
+										<th rowspan="2">Konversi</th>
+										<th rowspan="2">Predikat</th>
+										<th rowspan="2">KKM</th>
+										<th rowspan="2">Keterangan</th>
+										
+									</tr><tr>
+										<th width="3%">Nilai</th>
+										<th width="3%">Konv</th>
+										<th width="3%">Pre</th>
+										<th width="3%">Nilai</th>
+										<th width="3%">Konv</th>
+										<th width="3%">Pre</th>
+										<th width="3%">Nilai</th>
+										<th width="3%">Konv</th>
+										<th width="3%">Pre</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for siswa in nilaitotal %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+									<td>{{ siswa.siswa.NIS }}</td>
+									<td>{{ siswa.siswa.nama_lengkap }}</td>
+									<td>{{ siswa.nilai_sikap }}</td>
+									<td>{{ siswa.nilai_sikap_konv }}</td>
+									<td>{{ siswa.nilai_sikap_pre }}</td>
+									<td>{{ siswa.nilai_keterampilan }}</td>
+									<td>{{ siswa.nilai_keterampilan_konv }}</td>
+									<td>{{ siswa.nilai_keterampilan_pre }}</td>
+									<td>{{ siswa.nilai_kognitif }}</td>
+									<td>{{ siswa.nilai_kognitif_konv }}</td>
+									<td>{{ siswa.nilai_kognitif_pre }}</td>
+									<td>{{ siswa.rerata }}</td>
+									<td>{{ siswa.konversi }}</td>
+									<td>{{ siswa.predikat }}</td>
+									<td>{{ periode.kkm }}</td>
+									{% if "Belum Tuntas" in siswa.keterangan %}
+									<td bgcolor=#ff8080>{{ siswa.keterangan }}</td>
+									{% else %}
+									<td>{{ siswa.keterangan }}</td>
+									{% endif %}
+								</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

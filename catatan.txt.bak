@@ -1,0 +1,49 @@
+
+
+siswa dibuka per kelas --
+siswa detil halaman tersendiri --
+tampilan siswa sudah ada kelas pada detil ---
+proses bisnis utk nilai
+proses bisnis utk jadwaln ---
+perpesanan
+materi download
+materi video
+login ---
+jadwal lihat jam tiap guru dari admin/staf search --
+app informasi utk lihat data tertentu sesuai spek --
+
+waktu = mapel x
+kelas = waktu x
+
+def hitung_rapor(siswa, kelas, mapel, periode, pengajar):
+    try:
+        nilai_sikap = NilaiSikap.objects.get(siswa=siswa, kelas=kelas, mapel=mapel, periode=periode, pengajar=pengajar)
+        nilai_keterampilan = NilaiKeterampilan.objects.get(siswa=siswa, kelas=kelas, mapel=mapel, periode=periode, pengajar=pengajar)
+        nilai_kognitif = NilaiKognitif.objects.get(siswa=siswa, kelas=kelas, mapel=mapel, periode=periode, pengajar=pengajar)
+        rapor = NilaiRapor.objects.get(siswa=siswa, kelas=kelas, mapel=mapel, periode=periode, pengajar=pengajar).id
+        nilai_rapor = get_object_or_404(NilaiRapor, id=rapor)
+        nilai_rapor.nilai_sikap = nilai_sikap.rerata
+        nilai_rapor.nilai_sikap_konv = nilai_sikap.konversi
+        nilai_rapor.nilai_sikap_pre = nilai_sikap.predikat
+        nilai_rapor.save()
+        nilai_rapor.nilai_keterampilan = nilai_keterampilan.rerata
+        nilai_rapor.nilai_keterampilan_konv = nilai_keterampilan.konversi
+        nilai_rapor.nilai_keterampilan_pre = nilai_keterampilan.predikat
+        nilai_rapor.save()
+        nilai_rapor.nilai_kognitif = nilai_kognitif.rerata
+        nilai_rapor.nilai_kognitif_konv = nilai_kognitif.konversi
+        nilai_rapor.nilai_kognitif_pre = nilai_kognitif.predikat
+        nilai_rapor.save()
+        nilai_rapor.rerata = (Decimal(nilai_sikap.rerata)+Decimal(nilai_keterampilan.rerata)+Decimal(nilai_kognitif.rerata))/Decimal(3)
+        nilai_rapor.konversi = nilai_rapor.rerata/Decimal(0.25)/Decimal(100)
+        nilai_rapor.predikat = hitung_predikat(nilai_rapor.konversi)
+        if nilai_rapor.rerata < 2.86:
+            nilai_rapor.keterangan = "Belum Tuntas"
+        else:
+            nilai_rapor.keterangan = "Tuntas"
+        nilai_rapor.save()
+        pesan = "Rapor berhasil diubah"
+    except BaseException, err:
+        pesan = err
+
+    return pesan

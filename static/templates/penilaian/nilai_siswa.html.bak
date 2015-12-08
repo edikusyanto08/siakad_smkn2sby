@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-table"></i></div>
+					<h5>{% autoescape off %}{{heading}}{% endautoescape %}</h5>
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+							<div class="table-responsive">
+							<table class="table table-bordered table-hover table-stripped" id="dataTables-example5">
+							<thead>
+								<tr>
+									<td>No</td>
+									<td>NIS</td>
+									<td>Nama</td>
+									{% for mapel in mapels %}
+									<div class="tooltip-demo" align="right">
+										<td data-toggle="tooltip" data-placement="top" title="{{mapel.nama_mapel}}"><a href="{{mapel.id}}">{{mapel.kode}}</a></td>
+									</div>
+									{% endfor %}
+								</tr>
+								<tr>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									{% for mapel in mapels %}
+										<td> </td>
+									{% endfor %}
+								</tr>
+							</thead>
+								{% for siswa in siswas %}
+								<tr>
+									<td>{{forloop.counter}}</td>
+									<td>{{siswa.NIS}}</td>
+									<td>{{siswa.nama_lengkap}}</td>
+									{% for mapel in mapels %}
+										<td>
+											{% for nilai in nilais %}
+												{% if nilai.mapel == mapel and nilai.siswa == siswa %}
+												{{nilai.konversi}}
+												{% endif %}
+											{% endfor %}
+										</td>
+									{% endfor %}
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+				<div>
+		</div>
+	</div>
+</div>
+{% endblock %}

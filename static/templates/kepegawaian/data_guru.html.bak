@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<ul class="breadcrumb">
+				{% autoescape off %}
+					{{ breadcrumb }}
+				{% endautoescape %}
+			</ul>
+		</div>
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissable" align="center">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<b>{{ message }}</b>
+			</div>
+			{% endfor %}
+		{% endif %}
+		<div class="box primary">
+			<header>
+				<div class="icons"><i class="icon-user"></i></div>
+					<h5>{{ heading }}{{ nama_user }}</h5>
+				{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+				<div class="toolbar tooltip-demo">
+					<a href="tambah"  type="button" class="btn btn-info btn-sm btn-round" align="center" data-toggle="tooltip" data-placement="left" title="Tambah data"><i class="icon-plus"> Tambah Data</i></a>
+				</div>
+				{% endif %}
+			</header>
+			<div class="body">
+				<div class="table-responsive">
+					<table class="table table-hover" id="dataTables-example">
+						<thead>
+						<tr>
+							<th>No</th>
+							<th>NIP</th>
+							<th>Nama</th>
+							<th>Asal</th>
+							<th>Jabatan</th>
+							<th>Alamat</th>
+							<th>Foto</th>
+							{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+							<td></td>
+							{% endif %}
+						</tr>
+						</thead>
+						<tbody>
+						{% for guru in datanya %}
+							<tr class="even gradeA">
+								<td>{{ forloop.counter }}</td>
+								<td>{{ guru.NIP }}</td>
+								<td><a href="/kepegawaian/guru/detil/{{guru.id}}">{{ guru.nama_lengkap }}</td>
+								<td>{{ guru.tempat_lahir }}</td>
+								<td class="center">{{ guru.jabatan }}</td>
+								<td class="center">{{ guru.alamat }}</td>
+								{% if guru.foto == "" %}
+								<td class="center"><img src="/static/img/account_and_control.png" width="70" height="70" border="0" alt="{{ siswa.foto }}"></td>
+								{% else %}
+								<td class="center"><img src="/media/{{ guru.foto }}" width="70" height="70" border="0" alt="{{ siswa.foto }}"></td>
+								{% endif %}
+								{% if request.session.hak_akses == "Admin" or request.session.hak_akses == "staf" %}
+								<td>
+								<table><tr><td>
+								<div class="tooltip-demo" align="right">
+									<a href="{{linkubah}}{{ guru.id }}"  type="button" class="btn btn-warning btn-sm btn-line btn-round" align="right" data-toggle="tooltip" data-placement="left" title="Ubah data"><i class="icon-edit"></i></a></td><td>
+									<a href="{{linkhapus}}{{ guru.id }}" type="button" class="btn btn-danger btn-sm btn-line btn-round" align="right" onclick="return confirm('Semua data yang berhubungan dengan data yang dipilih juga akan dihapus. Apakah anda yakin menghapus data? ')" data-toggle="tooltip" data-placement="top" title="Hapus data"><i class="icon-trash"></i></a>
+								</div>
+								</td></tr></table>
+								</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

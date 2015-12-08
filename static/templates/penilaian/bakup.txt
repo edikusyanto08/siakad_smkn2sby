@@ -1,0 +1,125 @@
+def lihat_kelas(request):
+    if request.session['hak_akses'] !="guru" and request.session['hak_akses'] !="siswa":
+        if "mapel_id" in request.POST and "periode_id" in request.POST:
+            mapel_id=request.POST['mapel_id']
+            periode_id = request.POST['periode_id']
+        else:
+            try:
+                del request.session['mapel_id']
+                del request.session['kelas_id']
+                del request.session['periode_id']
+            except: pass
+            mapel_id=Mapel.objects.latest('id').id
+            periode_id = Periode.objects.latest('id').id
+        if "kelas_id" in request.POST:
+            request.session['kelas_id'] = request.POST['kelas_id']
+            return redirect(lihat_siswa)
+        request.session['mapel_id'] = mapel_id
+        request.session['periode_id'] = periode_id
+        periode=Periode.objects.get(id=periode_id)
+        periodes=Periode.objects.all()
+        thn = ThnAjaran.objects.get(periode_tahun=periode)
+        datanya = Kelas.objects.filter(jadwal_kelas__tahun_ajaran=thn,\
+                                       jadwal_kelas__mapel__mapel=mapel_id).distinct()
+        mapels = Mapel.objects.filter(mapeldiampu_mapel__jadwal_mapeldiampu__tahun_ajaran=thn).distinct()
+        pagegroups = "penilaian"
+        page = "data_nilai"
+        mapelnya = Mapel.objects.get(id=mapel_id)
+        breadcrumb = "<li><a href=/home/>Home</a></li><li class=active>Pilih Mapel dan Kelas</li>"
+        heading = "Data Mapel yang Diampu %s (%s %s)" %(mapelnya.nama_mapel, periode.semester, periode.tahun_ajaran)
+        title = heading+" | "
+        context = {"datanya": datanya,
+                   "pagegroups": pagegroups,
+                   "page": page,
+                   "mapels": mapels,
+                   "breadcrumb": breadcrumb,
+                   "heading": heading,
+                   "title": title,
+                   "mapel_id": mapel_id,
+                   "periodes": periodes,
+                   "periode_id": periode_id,
+                   }
+
+        return render(request, "penilaian/data_kelas.html",context )
+    else:
+        return render(request, "403.html", {} )
+
+def lihat_siswa(request):
+   if request.session['hak_akses'] !="guru" and request.session['hak_akses'] !="siswa":
+        try:
+            kelas = Kelas.objects.get(id=request.session['kelas_id'])
+            mapel = Mapel.objects.get(id=request.session['mapel_id'])
+            periode = Periode.objects.get(id=request.session['periode_id'])
+        except:
+            return redirect("lihat_kelas")
+        #inisialisasi nilai sikap, keterampilan dan kognitif
+        nilaisikap = NilaiSikap.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaiketerampilan = NilaiKeterampilan.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaikognitif = NilaiKognitif.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaitotal = NilaiTotal.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        pagegroups = "penilaian"
+        page = "data_nilai"
+        breadcrumb = "<li><a href=/home/>Home</a></li>\
+                            <li><a href=/penilaian/nilai/>Pilih Mapel dan Kelas</a></li>\
+                            <li class=active>Nilai Siswa kelas %s %s</li>" %(mapel.nama_mapel, kelas.nama_kelas)
+        heading = "Nilai Siswa Kelas %s %s Periode %s %s" %(mapel.nama_mapel, kelas.nama_kelas, periode.semester, periode.tahun_ajaran)
+        title = heading+" | "
+        siswas = Siswa.objects.filter(kelas_siswa__kelas__id=kelas.id)
+        mapels = Mapel.objects.filter(mapeldiampu_mapel__jadwal_mapeldiampu__kelas__id=kelas.id).distinct()
+        nilais = NilaiTotal.objects.filter(kelas__id=kelas.id, periode=periode)
+        j_mapel = mapels.count()
+        context = {
+                   "pagegroups": pagegroups,
+                   "page": page,
+                   "breadcrumb": breadcrumb,
+                   "heading": heading,
+                   "title": title,
+                   "nilaisikap": nilaisikap,
+                   "nilaiketerampilan": nilaiketerampilan,
+                   "nilaikognitif": nilaikognitif,
+                   "nilaitotal": nilaitotal,
+                   "siswas": siswas,
+                    "mapels": mapels,
+                    "nilais": nilais,
+                    "j_mapel": j_mapel,
+                   }
+
+        return render(request, "penilaian/data_siswa.html",context )
+   else:
+        return render(request, "403.html", {} )
+
+def detil_mapel(request, idMapel):
+   if request.session['hak_akses'] !="guru" and request.session['hak_akses'] !="siswa":
+        try:
+            kelas = Kelas.objects.get(id=request.session['kelas_id'])
+            mapel = Mapel.objects.get(id=idMapel)
+            periode = Periode.objects.get(id=request.session['periode_id'])
+        except:
+            return redirect("lihat_kelas")
+        #inisialisasi nilai sikap, keterampilan dan kognitif
+        nilaisikap = NilaiSikap.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaiketerampilan = NilaiKeterampilan.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaikognitif = NilaiKognitif.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        nilaitotal = NilaiTotal.objects.filter(kelas=kelas, periode=periode, mapel=mapel)
+        pagegroups = "penilaian"
+        page = "data_nilai"
+        breadcrumb = "<li><a href=/home/>Home</a></li>\
+                            <li><a href=/penilaian/nilai/>Pilih Mapel dan Kelas</a></li>\
+                            <li class=active>Nilai Siswa kelas %s %s</li>" %(mapel.nama_mapel, kelas.nama_kelas)
+        heading = "Nilai Siswa Kelas %s %s Periode %s %s" %(mapel.nama_mapel, kelas.nama_kelas, periode.semester, periode.tahun_ajaran)
+        title = heading+" | "
+        context = {
+                   "pagegroups": pagegroups,
+                   "page": page,
+                   "breadcrumb": breadcrumb,
+                   "heading": heading,
+                   "title": title,
+                   "nilaisikap": nilaisikap,
+                   "nilaiketerampilan": nilaiketerampilan,
+                   "nilaikognitif": nilaikognitif,
+                   "nilaitotal": nilaitotal,
+                   }
+
+        return render(request, "penilaian/data_siswa.html",context )
+   else:
+        return render(request, "403.html", {} )
